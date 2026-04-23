@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "../componentscss/AssessmentSection.css";
+import "../componentscss/Assessmentsection.css";
 import { PhoneIcon, MailIcon, CheckCircleIcon, ChevronIcon } from "./icons";
 
 /* ═══════════════════════════════════════
