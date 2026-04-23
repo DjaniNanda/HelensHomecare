@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block admin and login from crawlers
+Disallow: /admin
+Disallow: /login
+
+# Sitemap location
+Sitemap: https://www.helenshomecare.com/sitemap.xml
