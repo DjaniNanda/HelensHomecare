@@ -28,5 +28,7 @@ RUN chown appuser:appgroup app.jar
  
 USER appuser
  
-# Expose the application port
+# Expose the default port (Render overrides this with $PORT at runtime)
 EXPOSE 8080
+ 
+ENTRYPOINT ["sh", "-c", "java -jar app.jar --server.port=${PORT:-8080}"]
