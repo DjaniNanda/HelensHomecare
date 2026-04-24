@@ -46,15 +46,14 @@
 ═══════════════════════════════════════ */
 .sp-hero {
   position: relative;
-  background-color: var(--sp-blue); /* fallback si pas d'image */
+  background-color: var(--sp-blue);
   background-size: cover;
-  background-position: center ;
+  background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
   padding: 40px 40px 220px;
 }
 
-/* Overlay — plus opaque en haut pour lisibilité du texte */
 .sp-hero::before {
   content: '';
   position: absolute;
@@ -65,12 +64,11 @@
   pointer-events: none;
 }
 
-/* La shape redevient simplement --sp-offwhite, par-dessus tout */
 .sp-hero-shape {
   position: absolute;
   bottom: -2px; left: 0; right: 0;
   height: 80px;
-  background: var(--sp-offwhite); /* ← couleur simple, pas d'image */
+  background: var(--sp-offwhite);
   clip-path: ellipse(55% 100% at 50% 100%);
 }
 
@@ -498,7 +496,6 @@
   gap: 20px;
 }
 
-/* Card image-cover */
 .sp-other-card {
   position: relative;
   display: block;
@@ -515,7 +512,6 @@
   box-shadow: 0 16px 48px rgba(26,61,79,0.22);
 }
 
-/* Image de fond */
 .sp-other-card-bg {
   position: absolute;
   inset: 0;
@@ -528,7 +524,6 @@
   transform: scale(1.06);
 }
 
-/* Overlay dégradé navy */
 .sp-other-card::after {
   content: '';
   position: absolute;
@@ -551,7 +546,6 @@
   );
 }
 
-/* Gold bar slide au hover */
 .sp-other-card::before {
   content: '';
   position: absolute;
@@ -568,7 +562,6 @@
   transform: scaleX(1);
 }
 
-/* Contenu texte */
 .sp-other-body {
   position: absolute;
   bottom: 0;
@@ -598,7 +591,6 @@
   overflow: hidden;
 }
 
-/* Masquer les anciens éléments */
 .sp-other-icon,
 .sp-other-arrow { display: none; }
 
@@ -619,6 +611,9 @@
   .sp-root { padding-top: 64px; }
 
   .sp-hero { padding: 60px 20px 80px; }
+
+  /* ── Hide the curvy shape on mobile ── */
+  .sp-hero-shape { display: none; }
 
   .sp-container { padding: 0 20px; }
 
