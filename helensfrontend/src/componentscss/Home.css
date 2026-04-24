@@ -317,7 +317,7 @@
 /* Scroll cue */
 .hero-scroll-cue {
   position: absolute;
-  top: 10px;
+  top: 50%;
   bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
