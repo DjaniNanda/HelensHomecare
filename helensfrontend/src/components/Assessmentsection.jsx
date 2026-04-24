@@ -1,34 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import "../componentscss/Assessmentsection.css";
 import { PhoneIcon, MailIcon, CheckCircleIcon, ChevronIcon } from "./icons";
+import { API } from "../api/config";
 
 /* ═══════════════════════════════════════
-   DATA
+   DATA  — values match backend enums exactly
 ═══════════════════════════════════════ */
 const CARE_TYPES = [
-  "Senior Home Care Services",
-  "Personal Care Services",
-  "24/7 In-Home Care",
-  "Companion Care Service",
-  "Hospital to Home Transition Care",
-  "Assistance Before & After Surgery",
-  "Dementia Care Services",
-  "Alzheimer's Care Services",
-  "Unsure",
-  "Looking for Work",
+  { value: "HOME_CARE",        label: "Senior / Personal / In-Home Care" },
+  { value: "HOME_CARE",        label: "24/7 In-Home Care" },
+  { value: "HOME_CARE",        label: "Companion Care Service" },
+  { value: "HOME_CARE",        label: "Hospital to Home Transition Care" },
+  { value: "HOME_CARE",        label: "Assistance Before & After Surgery" },
+  { value: "HOME_CARE",        label: "Dementia Care Services" },
+  { value: "HOME_CARE",        label: "Alzheimer's Care Services" },
+  { value: "UNSURE",           label: "Unsure / Explore Options" },
+  { value: "LOOKING_FOR_WORK", label: "Looking for Work" },
 ];
 
 const SERVICE_LOCATIONS = [
-  "Gwinnett County",
-  "DeKalb County",
-  "Cobb County",
-  "Fulton County",
-  "Clayton County",
-  "Henry County",
-  "Walton County",
-  "Rockdale County",
-  "Morrow County",
-  "Forsyth County",
+  { value: "GWINNETT",  label: "Gwinnett County" },
+  { value: "DEKALB",    label: "DeKalb County" },
+  { value: "COBB",      label: "Cobb County" },
+  { value: "FULTON",    label: "Fulton County" },
+  { value: "CLAYTON",   label: "Clayton County" },
+  { value: "HENRY",     label: "Henry County" },
+  { value: "WALTON",    label: "Walton County" },
+  { value: "ROCKDALE",  label: "Rockdale County" },
+  { value: "MORROW",    label: "Morrow County" },
+  { value: "FORSYTH",   label: "Forsyth County" },
 ];
 
 /* ═══════════════════════════════════════
@@ -36,6 +36,8 @@ const SERVICE_LOCATIONS = [
 ═══════════════════════════════════════ */
 function AssessmentForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading,   setLoading]   = useState(false);
+  const [apiError,  setApiError]  = useState("");
   const [form, setForm] = useState({
     firstName: "", lastName: "",
     email: "", phone: "",
@@ -43,7 +45,36 @@ function AssessmentForm() {
   });
 
   const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const submit = (e) => { e.preventDefault(); setSubmitted(true); };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setApiError("");
+    try {
+      const payload = {
+        fullName:    `${form.firstName.trim()} ${form.lastName.trim()}`,
+        phoneNumber: form.phone.trim(),
+        email:       form.email.trim(),
+        county:      form.location,
+        city:        form.city.trim(),
+        typeOfCare:  form.care,
+      };
+      const res = await fetch(API.assessments, {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.message || "Something went wrong. Please try again.");
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setApiError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (submitted) {
     return (
@@ -108,7 +139,7 @@ function AssessmentForm() {
               value={form.location} onChange={handle} required>
               <option value="" disabled>Select a county…</option>
               {SERVICE_LOCATIONS.map(loc => (
-                <option key={loc} value={loc}>{loc}</option>
+                <option key={loc.value} value={loc.value}>{loc.label}</option>
               ))}
             </select>
             <span className="as-select-arrow" aria-hidden="true"><ChevronIcon size={14} /></span>
@@ -124,16 +155,20 @@ function AssessmentForm() {
             value={form.care} onChange={handle} required>
             <option value="" disabled>Select a care type…</option>
             {CARE_TYPES.map(c => (
-              <option key={c} value={c}>{c}</option>
+              <option key={c.label} value={c.value}>{c.label}</option>
             ))}
           </select>
           <span className="as-select-arrow" aria-hidden="true"><ChevronIcon size={14} /></span>
         </div>
       </div>
 
-      <button type="submit" className="as-form-submit">
-        Request My Free Assessment
+      <button type="submit" className="as-form-submit" disabled={loading}>
+        {loading ? "Submitting…" : "Request My Free Assessment"}
       </button>
+
+      {apiError && (
+        <p className="as-form-error" role="alert">{apiError}</p>
+      )}
 
       <p className="as-form-note">
         No obligation · A care coordinator will contact you within 24 hours
