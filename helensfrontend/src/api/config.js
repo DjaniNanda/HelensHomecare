@@ -2,7 +2,7 @@
 //  API CONFIGURATION — set API_URL in your .env file
 // ─────────────────────────────────────────────────────────────
 
-export const BASE_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8080";
+export const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 // Endpoint map — derived from BASE_URL so you never need to
 // update any other file when the server address changes.
