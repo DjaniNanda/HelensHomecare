@@ -81,7 +81,7 @@ const FAQS = [
   },
   {
     q: "What counties does Helen's Home Care serve?",
-    a: "We serve Gwinnett, DeKalb, Cobb, Fulton, Clayton, Henry, Morrow, Walton, Rockdale, and Forsyth counties across the Greater Atlanta area.",
+    a: "We serve Gwinnett, DeKalb, Cobb, Fulton, Clayton, Henry, Morrow, Walton, Rockdale, and Forsyth counties.",
   },
   {
     q: "Can I work part-time or choose my hours?",

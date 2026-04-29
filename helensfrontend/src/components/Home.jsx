@@ -15,7 +15,7 @@ const SERVICES = [
     accent: "blue",
     title: "Senior Home Care",
     desc: "Comprehensive, compassionate care tailored to each senior's unique needs — delivered in the comfort of their own home.",
-    features: ["Personalized care plans", "Skilled, vetted caregivers", "Family communication"],
+    features: ["Personalized care plans", "Skilled caregivers", "Family communication"],
     img: "/10.jpg",
   },
   {
@@ -28,7 +28,7 @@ const SERVICES = [
   {
     accent: "sky",
     title: "Companion Care",
-    desc: "Meaningful social engagement, errands, light housekeeping, and emotional support that keeps loneliness at bay.",
+    desc: "Meaningful social engagement, errands, light housekeeping, and daily living support that keeps loneliness at bay.",
     features: ["Emotional support", "Transportation & errands", "Light housekeeping"],
     img: "/7.jfif",
   },
@@ -228,21 +228,18 @@ function HomeCareExplainer() {
           <h2 className="hce-title">Home Care</h2>
           <p className="hce-tagline">Flexible Care as Unique as You</p>
           <p className="hce-desc">
-            At Helen's Home Care, <strong>everything we do happens in the place that matters most — your home.</strong> We
-            are a dedicated home care agency, not a facility. That means our skilled caregivers come
-            directly to you, fitting seamlessly into your daily life and routine.
+            <strong>At Helen's Homecare, everything we do happens in the place that is convenient for you.</strong> Whether at home, the hospital, the senior living or elsewhere, our passionate and dedicated care team provide our clients with individualized services and flexible support.
           </p>
           <p className="hce-desc">
             From assistance with personal hygiene and mobility to medication reminders,
-            transportation, meal preparation, and round-the-clock nursing support — our
+            transportation, meal preparation — our
             comprehensive range of services ensures you or your loved one receives exactly
             the level of care needed, right where you feel safest and most comfortable.
           </p>
           <p className="hce-desc">
-            We serve people of all ages, physical conditions, and cognitive abilities across
-            Gwinnett County and the greater Atlanta area. Whether you need a few hours of
-            companion care each week or continuous 24/7 support, our care coordinators will
-            design a personalised plan built entirely around your needs — never a one-size-fits-all package.
+            We serve people across Gwinnett County and its surroundings areas. Whether you need
+            a few hours or continuous 24/7 support, our care coordinators will
+            design a personalized plan built entirely around your needs.
           </p>
           {/* ── ocuppe toi  du href ── */}
           <a href="#assessment" className="hce-cta">Learn More</a>
@@ -340,8 +337,8 @@ export default function Home() {
             </h1>
 
             <p className="hero-sub">
-              Helen's Home Care provides professional, medical personal care
-              for seniors across Gwinnett County and the greater Atlanta area —
+              Helen's Home Care provides professional, non-medical personal care
+              for seniors across Gwinnett County and its surroundings —
               delivered with dignity, warmth, and unwavering respect.
             </p>
 
@@ -388,7 +385,7 @@ export default function Home() {
           </h2>
           <p className={`section-sub ${svcsVisible ? "revealed" : ""}`}>
             From companion care to specialised memory support, every service is shaped
-            around the individual — never one-size-fits-all.
+            around the individual — shaped to fit their unique needs.
           </p>
         </div>
         <div className="svc-grid">
@@ -433,7 +430,7 @@ export default function Home() {
         <div className="section-header">
           <span className={`section-eyebrow ${locVisible ? "revealed" : ""}`}>Where We Serve</span>
           <h2 className={`section-title ${locVisible ? "revealed" : ""}`}>
-            Covering <em>Greater Atlanta</em>
+            Covering <em>Gwinnett County and its surroundings</em>
           </h2>
           <p className={`section-sub ${locVisible ? "revealed" : ""}`}>
             Based in Lawrenceville, Georgia — delivering care across 10 counties.

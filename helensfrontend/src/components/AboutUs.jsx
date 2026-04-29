@@ -61,16 +61,16 @@ function AboutHero() {
         <div className="au-hero-copy">
           <div className="au-hero-badge">
             <span className="au-hero-badge-dot" />
-            Serving Greater Atlanta Since 2026
+            Serving Gwinnett County and its surroundings since 2026
           </div>
           <h1 className="au-hero-headline">
-            Compassionate Care,<br />
+            Holistic Care,<br />
             <em>Rooted in Purpose</em>
           </h1>
           <p className="au-hero-sub">
-            Helen's Home Care is a privately owned medical personal care provider
+            Helen's Home Care is a privately owned and operated non-medical personal care provider
             built on one simple belief — everyone deserves quality care in the place
-            they feel safest: home.
+            where they feel safest.
           </p>
           <div className="au-hero-actions">
             <a href="/assessment" className="au-btn-primary">Request a Free Assessment</a>
@@ -108,7 +108,7 @@ function OurStory() {
           </div>
           <div className="au-story-accent-card">
             <p className="au-story-accent-quote">
-              "She often found that people enjoyed a higher quality of life when care came to them."
+              "She often found that people enjoyed a higher quality of life when care comes to them."
             </p>
           </div>
         </div>
@@ -120,9 +120,9 @@ function OurStory() {
             Born from a Nurse's<br /><em>Years of Experience</em>
           </h2>
           <p className="au-story-text">
-            Helen's Home Care was founded by a nurse with years of experience working alongside hundreds of elderly patients.
-            Throughout her career, she noticed something profound — many of her patients didn't need a hospital or doctor's office.
-            What they truly needed was skilled, compassionate care delivered in the comfort of their own home.
+            Helen's Home Care is founded by a nurse with years of experience working alongside hundreds of elderly patients.
+            Throughout her career, she noticed something profound — many people did not need to travel to a doctor's office
+            or hospital for their care. What they truly enjoyed was skilled, compassionate care delivered in the comfort of their own home.
           </p>
           <p className="au-story-text">
             That insight became her mission. She set out to build a home care agency where she and other dedicated professionals
@@ -130,9 +130,8 @@ function OurStory() {
             and their dignity without ever leaving the place they love most.
           </p>
           <div className="au-story-checks">
-            <div className="au-story-check"><span className="au-check-dot"><CheckIcon size={14} /></span>Privately owned & operated</div>
-            <div className="au-story-check"><span className="au-check-dot"><CheckIcon size={14} /></span>Founded by a licensed nurse</div>
-            <div className="au-story-check"><span className="au-check-dot"><CheckIcon size={14} /></span>Serving Gwinnett County & beyond</div>
+            <div className="au-story-check"><span className="au-check-dot"><CheckIcon size={14} /></span>Privately owned &amp; operated</div>
+            <div className="au-story-check"><span className="au-check-dot"><CheckIcon size={14} /></span>Serving Gwinnett county and its surroundings areas</div>
           </div>
         </div>
 
@@ -218,7 +217,7 @@ function ServiceAreas() {
         <div className="au-areas-copy">
           <span className={`au-eyebrow ${visible ? "au-revealed" : ""}`}>Where We Serve</span>
           <h2 className={`au-section-title ${visible ? "au-revealed" : ""}`}>
-            Covering <em>Greater Atlanta</em>
+            Covering <em>Gwinnett County and its surroundings</em>
           </h2>
           <p className="au-areas-text">
             Based in Lawrenceville, Georgia, we provide care across Gwinnett County

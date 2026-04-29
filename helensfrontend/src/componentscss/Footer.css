@@ -246,3 +246,44 @@
   color: #e0c06a;
   text-decoration: underline;
 }
+/* ── Social Media ── */
+.footer-social {
+  text-align: center;
+  padding: 1.5rem 2rem 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: 1rem;
+}
+
+.footer-social h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c8dde6;
+  margin-bottom: 0.75rem;
+}
+
+.footer-social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #c8dde6;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.footer-social-link:hover {
+  color: #e0c06a;
+  border-color: #e0c06a;
+  background: rgba(224,192,106,0.08);
+}

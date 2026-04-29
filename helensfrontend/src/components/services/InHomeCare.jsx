@@ -49,7 +49,7 @@ const config = {
     "Around-the-clock care and support for clients who need continuous oversight — day and night, weekends and holidays, without exception.",
   intro: [
     "Some individuals require more than just daytime support. Whether due to a complex medical condition, cognitive decline, recovery from a procedure, or simply the need for continuous reassurance, Helen's Home Care provides reliable 24/7 in-home care across Gwinnett County and surrounding areas.",
-    "Our around-the-clock service ensures that a trained, compassionate caregiver is always present — giving clients the safety and security they need and giving families peace of mind knowing their loved one is never alone.",
+    "Our around-the-clock service ensures that a trained, compassionate caregiver is always present — giving clients the safety and security they need and giving families peace of mind knowing their loved one is not alone.",
   ],
   introHighlights: [
     "Continuous care day and night",

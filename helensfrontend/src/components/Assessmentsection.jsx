@@ -86,8 +86,8 @@ function AssessmentForm() {
           <a href="tel:+17708614402" className="as-form-success-link">
             <PhoneIcon className="as-contact-svg" /> 770-861-4402
           </a>
-          <a href="mailto:helenshomecarellc@gmail.com" className="as-form-success-link">
-            <MailIcon className="as-contact-svg" /> helenshomecarellc@gmail.com
+          <a href="mailto:helenshomecare14@gmail.com" className="as-form-success-link">
+            <MailIcon className="as-contact-svg" /> helenshomecare14@gmail.com
           </a>
         </div>
       </div>
@@ -223,9 +223,9 @@ export default function AssessmentSection({ id = "assessment" }) {
               <span className="as-contact-icon-wrap"><PhoneIcon className="as-contact-svg" /></span>
               <span>770-861-4402</span>
             </a>
-            <a href="mailto:helenshomecarellc@gmail.com" className="as-contact-item">
+            <a href="mailto:helenshomecare14@gmail.com" className="as-contact-item">
               <span className="as-contact-icon-wrap"><MailIcon className="as-contact-svg" /></span>
-              <span>helenshomecarellc@gmail.com</span>
+              <span>helenshomecare14@gmail.com</span>
             </a>
           </div>
         </div>

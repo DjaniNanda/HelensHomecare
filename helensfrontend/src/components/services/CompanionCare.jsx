@@ -56,11 +56,11 @@ const config = {
   subtitle:
     "Meaningful companionship, social engagement, and light everyday support that keeps loneliness at bay and brightens each day.",
   intro: [
-    "Loneliness and social isolation are serious concerns for many seniors and individuals receiving home care. Helen's Home Care companion services are designed to provide genuine human connection, emotional support, and practical help — ensuring clients feel valued, engaged, and supported every single day.",
+    "Loneliness and social isolation are serious concerns for many seniors and individuals receiving home care. Helen's Home Care companion services are designed to provide genuine human connection, daily living support, and practical help — ensuring clients feel valued, engaged, and supported every single day.",
     "Our compassionate companions build real relationships with clients. They listen, share stories, assist with errands, help around the house, and accompany clients to appointments and social events — making every interaction meaningful.",
   ],
   introHighlights: [
-    "Genuine friendship and emotional support",
+    "Genuine friendship and daily living support",
     "Transportation to appointments and errands",
     "Meal planning and light housekeeping",
     "Accompanying to social and recreational events",

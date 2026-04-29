@@ -54,7 +54,7 @@ const config = {
     "Compassionate, personalised care that allows seniors to age gracefully in the comfort and familiarity of their own home.",
   intro: [
     "At Helen's Home Care, we believe that every senior deserves to live with dignity, independence, and the highest possible quality of life — right at home. Our senior home care services are thoughtfully designed to support the unique physical, emotional, and social needs of older adults across Gwinnett County and surrounding communities.",
-    "Our experienced and vetted caregivers work closely with clients and their families to build personalised care plans that evolve alongside each individual's needs — whether that means light assistance a few hours a week or comprehensive daily support.",
+    "Our experienced caregivers work closely with clients and their families to build personalised care plans that evolve alongside each individual's needs — whether that means light assistance a few hours a week or comprehensive daily support.",
   ],
   introHighlights: [
     "Personalised care plans for every client",
@@ -62,7 +62,6 @@ const config = {
     "Flexible scheduling — hours or full days",
     "Family updates and open communication",
     "Care across all Gwinnett-area counties",
-    "Serving clients of all ages and abilities",
   ],
   items: [
     {

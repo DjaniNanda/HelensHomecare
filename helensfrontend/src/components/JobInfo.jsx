@@ -23,7 +23,7 @@ const POSITIONS = [
     id: 1,
     title: "Home Health Aide (HHA)",
     type: "Full-time / Part-time",
-    location: "Greater Atlanta, GA",
+    location: "Gwinnett and its surroundings",
     desc: "Provide personal care, companionship, and daily living assistance to seniors and adults in their homes. Flexible scheduling available across all 10 counties.",
     requirements: [
       "HHA certificate or willingness to obtain",
@@ -98,7 +98,7 @@ function JobHero() {
         <div className="ji-hero-copy">
           <span className="ji-hero-eyebrow">
             <span className="ji-eyebrow-dot" />
-            Hiring Across Greater Atlanta
+            Hiring Across Gwinnett and its surroundings
           </span>
           <h1 className="ji-hero-headline">
             Great People Deserve<br />
