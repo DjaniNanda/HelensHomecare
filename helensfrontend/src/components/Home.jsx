@@ -337,9 +337,9 @@ export default function Home() {
             </h1>
 
             <p className="hero-sub">
-              Helen's Home Care provides professional, non-medical personal care
-              for seniors across Gwinnett County and its surroundings —
-              delivered with dignity, warmth, and unwavering respect.
+              Helen’s Home Care is a privately owned and operated non-medical personal care 
+              provider that serve the aging population of Gwinnett county and its surroundings
+              areas.Delivered with dignity, warmth, and unwavering respect.
             </p>
 
             <div className="hero-actions">
