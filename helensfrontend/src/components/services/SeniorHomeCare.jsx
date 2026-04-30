@@ -61,7 +61,6 @@ const config = {
     "Skilled, background-checked caregivers",
     "Flexible scheduling — hours or full days",
     "Family updates and open communication",
-    "Care across all Gwinnett-area counties",
   ],
   items: [
     {
