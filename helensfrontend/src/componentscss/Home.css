@@ -997,7 +997,21 @@
   :root { --sp-v: 72px; --sp-h: 24px; }
 
   .hero       { padding: 96px var(--sp-h) 64px; }
-  .hero-badge { font-size: 0.68rem; padding: 6px 13px; }
+  .hero-badge { font-size: 0.75rem; padding: 6px 13px; }
+  .hero-sub   { font-size: 1.05rem; }
+  .trust-item { font-size: 0.9rem; }
+
+  .section-eyebrow  { font-size: 0.85rem; }
+  .section-title    { font-size: clamp(1.7rem, 4.5vw, 2.4rem); }
+  .section-sub      { font-size: 1.02rem; }
+
+  .val-title  { font-size: 1.18rem; }
+  .val-desc   { font-size: 1rem; }
+
+  .svc-card-title { font-size: 1.1rem; }
+  .svc-card-desc  { font-size: 0.97rem; }
+
+  .loc-badge      { font-size: 0.95rem; }
 
   .svc-grid   { grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto; }
 
@@ -1009,14 +1023,14 @@
   :root { --sp-v: 64px; --sp-h: 20px; }
 
   .hero               { padding: 90px var(--sp-h) 56px; }
-  .hero-headline      { font-size: clamp(1.7rem, 6vw, 2.1rem); }
-  .hero-headline em   { font-size: clamp(1.5rem, 5.6vw, 1.95rem); }
-  .hero-sub           { font-size: 0.97rem; }
+  .hero-headline      { font-size: clamp(1.75rem, 6vw, 2.2rem); }
+  .hero-headline em   { font-size: clamp(1.55rem, 5.6vw, 2rem); }
+  .hero-sub           { font-size: 1.05rem; }
   .hero-actions       { flex-direction: column; }
   .btn-primary,
   .btn-secondary      { width: 100%; justify-content: center; text-align: center; }
   .hero-trust         { gap: 12px; }
-  .trust-item         { font-size: 0.8rem; }
+  .trust-item         { font-size: 0.88rem; }
 
   .stats-band         { padding: 44px var(--sp-h); }
 
@@ -1024,9 +1038,12 @@
 
   .values-grid        { max-width: 100%; }
   .val-card           { padding: 28px 22px; }
+  .val-title          { font-size: 1.15rem; }
+  .val-desc           { font-size: 0.98rem; }
 
   .loc-map-frame      { height: 300px; }
   .loc-counties       { grid-template-columns: repeat(2, 1fr); }
+  .loc-badge          { font-size: 0.95rem; }
 }
 
 /* ── 480px ── */
@@ -1034,8 +1051,16 @@
   :root { --sp-v: 56px; --sp-h: 16px; }
 
   .hero               { padding: 88px var(--sp-h) 52px; }
-  .hero-headline      { font-size: clamp(1.55rem, 6.5vw, 1.9rem); }
-  .hero-headline em   { font-size: clamp(1.4rem, 6.2vw, 1.75rem); }
+  .hero-headline      { font-size: clamp(1.6rem, 6.5vw, 2rem); }
+  .hero-headline em   { font-size: clamp(1.45rem, 6.2vw, 1.85rem); }
+  .hero-sub           { font-size: 1.02rem; }
+  .trust-item         { font-size: 0.88rem; }
+
+  .section-title      { font-size: clamp(1.55rem, 5.5vw, 2rem); }
+  .section-sub        { font-size: 1rem; }
+
+  .val-title          { font-size: 1.12rem; }
+  .val-desc           { font-size: 0.97rem; }
 
   .stats-inner        { grid-template-columns: repeat(2, 1fr); }
 
@@ -1045,7 +1070,7 @@
 
   .loc-map-frame      { height: 260px; }
   .loc-counties       { grid-template-columns: repeat(2, 1fr); gap: 7px; }
-  .loc-badge          { padding: 9px 10px; font-size: 0.82rem; }
+  .loc-badge          { padding: 9px 10px; font-size: 0.9rem; }
 }
 
 /* ── 380px ── */
