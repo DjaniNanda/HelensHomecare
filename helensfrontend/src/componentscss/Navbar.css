@@ -463,30 +463,30 @@
 /* ── Large phones (≤600px) ── */
 @media (max-width: 600px) {
   .floating-cta { left: 10px; right: 10px; bottom: 14px; gap: 8px; }
-  .floating-btn { font-size: 0.9rem; padding: 12px 10px; gap: 8px; }
+  .floating-btn { font-size: 1rem; padding: 28px 10px; gap: 8px; }
   .floating-icon { width: 20px; height: 20px; }
 }
 
 /* ── Medium phones (≤480px) ── */
 @media (max-width: 480px) {
   .floating-cta { left: 8px; right: 8px; bottom: 12px; gap: 7px; }
-  .floating-btn { font-size: 0.95rem; padding: 25px 8px; gap: 7px; }
+  .floating-btn { font-size: 0.97rem; padding: 25px 8px; gap: 7px; }
 }
 
 /* ── Small phones (≤380px) ── */
 @media (max-width: 380px) {
   .floating-cta { left: 6px; right: 6px; bottom: 10px; gap: 6px; }
-  .floating-btn { padding: 11px 6px; font-size: 0.78rem; gap: 5px; border-radius: 12px; }
+  .floating-btn { padding: 22px 6px; font-size: 0.88rem; gap: 5px; border-radius: 32px; }
   .floating-icon { width: 18px; height: 18px; }
 }
 
 /* ── Very small phones (≤320px) — shorten label, stay rectangular ── */
 @media (max-width: 320px) {
   .floating-cta  { left: 4px; right: 4px; bottom: 8px; gap: 5px; }
-  .floating-btn  { padding: 10px 4px; font-size: 0.72rem; gap: 4px; border-radius: 10px; }
+  .floating-btn  { padding: 20px 4px; font-size: 0.82rem; gap: 4px; border-radius: 31px; }
   .floating-icon { width: 16px; height: 16px; }
   /* Shorten the call label on tiny screens via a CSS trick — 
      the JS label text stays but we clip it */
-  .floating-btn-call .floating-label { font-size: 0.68rem; }
-  .floating-btn-care .floating-label { font-size: 0.68rem; }
+  .floating-btn-call .floating-label { font-size: 0.78rem; }
+  .floating-btn-care .floating-label { font-size: 0.78rem; }
 }
