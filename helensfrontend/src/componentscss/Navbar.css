@@ -470,7 +470,7 @@
 /* ── Medium phones (≤480px) ── */
 @media (max-width: 480px) {
   .floating-cta { left: 8px; right: 8px; bottom: 12px; gap: 7px; }
-  .floating-btn { font-size: 1.3rem; padding: 25px 8px; gap: 7px; }
+  .floating-btn { font-size: 0.95rem; padding: 25px 8px; gap: 7px; }
 }
 
 /* ── Small phones (≤380px) ── */
