@@ -23,7 +23,7 @@
 /* ── Wrapper ── */
 .navbar {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 1; left: 0; right: 0;
   z-index: 1000;
   border-radius: 20px;
   height: var(--nav-height);
