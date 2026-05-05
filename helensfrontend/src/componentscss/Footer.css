@@ -11,6 +11,7 @@
   background: #1a3d4f;
   font-family: 'Lato', sans-serif;
   border-top: 1px solid #2a5568;
+  overflow-x: hidden;
 }
 
 /* ── Brand Header ── */
@@ -216,6 +217,7 @@
   .footer-columns {
     grid-template-columns: repeat(2, 1fr);
     gap: 32px 0;
+    padding: 32px 32px 40px;
   }
 
   .footer-col {
@@ -228,10 +230,59 @@
 @media (max-width: 560px) {
   .footer-columns {
     grid-template-columns: 1fr;
+    padding: 24px 20px 32px;
   }
 
   .footer-brand h1 {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-columns {
+    padding: 20px 16px 28px;
+  }
+
+  .footer-col {
+    padding: 0 4px 20px;
+  }
+
+  /* Payment grid: 2 colonnes sur petit écran */
+  .payment-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .payment-card {
+    min-height: 44px;
+    font-size: 0.65rem;
+  }
+
+  .payment-card.visa {
+    font-size: 0.82rem;
+  }
+
+  .payment-card.amex {
+    font-size: 0.52rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .footer-columns {
+    padding: 16px 12px 24px;
+  }
+
+  .footer-brand {
+    padding: 28px 16px 20px;
+  }
+
+  .footer-brand h1 {
+    font-size: 1.3rem;
+  }
+
+  .payment-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
   }
 }
 

@@ -35,6 +35,7 @@
   border-bottom: 4px solid var(--nav-gold);
   transition: box-shadow var(--transition);
   font-family: 'Lato', sans-serif;
+  overflow: hidden;
 }
 
 .navbar.scrolled { box-shadow: var(--nav-shadow); }
@@ -305,39 +306,39 @@
 
 /* Large phones */
 @media (max-width: 600px) {
-  .navbar { padding: 0 26px; height: 70px; --nav-height: 70px; }
-  .nav-links { top: 60px; }
-  .nav-brand-name { font-size: 2.2rem; }
-  .nav-logo { width: 60px; height: 60px; }
+  .navbar { padding: 0 16px; height: 64px; --nav-height: 64px; }
+  .nav-links { top: 64px; }
+  .nav-brand-name { font-size: 1.15rem; }
+  .nav-logo { width: 48px; height: 48px; }
   .nav-brand { gap: 10px; }
 }
 
 /* Medium phones */
 @media (max-width: 480px) {
-  .navbar { padding: 0 24px; height: 66px; --nav-height: 66px; }
-  .nav-links { top: 56px; }
-  .nav-brand-name { font-size: 1.5rem; }
-  .nav-logo { width: 46px; height: 46px; }
-  .nav-brand { gap: 9px; }
+  .navbar { padding: 0 14px; height: 62px; --nav-height: 62px; }
+  .nav-links { top: 62px; }
+  .nav-brand-name { font-size: 1.05rem; }
+  .nav-logo { width: 44px; height: 44px; }
+  .nav-brand { gap: 8px; }
 }
 
 /* Small phones */
 @media (max-width: 380px) {
-  .navbar { padding: 0 22px; height: 62px; --nav-height: 62px; }
-  .nav-links { top: 52px; }
-  .nav-brand-name { font-size: 1.2rem; }
-  .nav-logo { width: 42px; height: 42px; }
-  .nav-brand { gap: 8px; }
+  .navbar { padding: 0 12px; height: 58px; --nav-height: 58px; }
+  .nav-links { top: 58px; }
+  .nav-brand-name { font-size: 0.95rem; }
+  .nav-logo { width: 38px; height: 38px; }
+  .nav-brand { gap: 7px; }
   .hamburger span { width: 20px; }
 }
 
 /* Very small phones */
 @media (max-width: 320px) {
-  .navbar { padding: 0 20px; height: 58px; --nav-height: 58px; }
-  .nav-links { top: 48px; }
-  .nav-brand-name { font-size: 1rem; }
-  .nav-logo { width: 38px; height: 38px; }
-  .nav-brand { gap: 7px; }
+  .navbar { padding: 0 10px; height: 54px; --nav-height: 54px; }
+  .nav-links { top: 54px; }
+  .nav-brand-name { font-size: 0.88rem; }
+  .nav-logo { width: 34px; height: 34px; }
+  .nav-brand { gap: 6px; }
 }
 
 
