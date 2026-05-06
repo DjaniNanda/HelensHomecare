@@ -624,10 +624,66 @@
   .ad-content { padding: 18px 16px; }
   .ap-mfield-row { grid-template-columns: 1fr; }
   .ap-panel-actions { flex-direction: column; align-items: flex-start; }
-  .ap-filters { width: 100%; }
+  .ap-filters { width: 100%; flex-wrap: wrap; }
+  .ap-btn-create { width: 100%; justify-content: center; }
+
+  /* ── Table → Card layout ── */
+  .ap-table-wrap { background: transparent; border: none; box-shadow: none; overflow: visible; }
+  .ap-table { display: block; }
+  .ap-table thead { display: none; }
+  .ap-table tbody { display: flex; flex-direction: column; gap: 12px; }
+  .ap-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--slate-300);
+    box-shadow: var(--shadow-sm);
+    padding: 16px;
+    gap: 10px;
+  }
+  .ap-table tbody tr:hover { background: var(--teal-50); }
+  .ap-table td {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0;
+    font-size: 0.88rem;
+  }
+  /* Label before each cell using data-label attr */
+  .ap-table td::before {
+    content: attr(data-label);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--slate-500);
+    min-width: 90px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+  .ap-table td[data-label=""]::before { display: none; }
+  .ap-td-name { font-size: 1rem; font-weight: 700; }
+  .ap-td-actions { justify-content: flex-end; }
+  .ap-td-actions::before { display: none; }
+  .ap-contact-cell { gap: 6px; }
 }
+
+@media (max-width: 480px) {
+  .ad-topbar-title { font-size: 1.1rem; }
+  .ad-topbar-site { font-size: 0.75rem; padding: 6px 10px; }
+  .ap-filters { gap: 6px; }
+  .ap-filter-select { font-size: 0.8rem; padding: 6px 24px 6px 9px; }
+  .ap-table td::before { min-width: 80px; }
+}
+
 @media (max-width: 500px) {
   .ap-modal { max-height: 100vh; }
   .ap-modal-overlay { padding: 0; align-items: flex-end; }
   .ap-modal { border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+  .ap-modal-header { padding: 20px 20px 16px; }
+  .ap-modal-body { padding: 16px 20px; }
+  .ap-modal-footer { padding: 14px 20px 20px; flex-direction: column-reverse; }
+  .ap-modal-cancel,
+  .ap-modal-save { width: 100%; text-align: center; justify-content: center; }
 }

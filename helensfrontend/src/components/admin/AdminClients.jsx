@@ -123,8 +123,8 @@ export default function AdminClients() {
                 {rows.length === 0 && <tr><td colSpan={6} className="ap-empty">No clients found.</td></tr>}
                 {rows.map(row => (
                   <tr key={row.id}>
-                    <td className="ap-td-name">{row.fullName}</td>
-                    <td>
+                    <td data-label="Name" className="ap-td-name">{row.fullName}</td>
+                    <td data-label="Contact">
                       <div className="ap-contact-cell">
                         <a href={`tel:${row.phoneNumber}`} className="ap-action-call">
                           <PhoneIcon size={13} />
@@ -136,14 +136,14 @@ export default function AdminClients() {
                         </a>
                       </div>
                     </td>
-                    <td>{row.city}, {toTitle(row.county)}</td>
-                    <td><span className={`badge ${STATUS_COLORS[row.status]}`}>{STATUS_LABELS[row.status]}</span></td>
-                    <td className="ap-td-plan">
+                    <td data-label="Location">{row.city}, {toTitle(row.county)}</td>
+                    <td data-label="Status"><span className={`badge ${STATUS_COLORS[row.status]}`}>{STATUS_LABELS[row.status]}</span></td>
+                    <td data-label="Care Plan" className="ap-td-plan">
                       {row.carePlan
                         ? row.carePlan.slice(0, 60) + (row.carePlan.length > 60 ? "…" : "")
                         : <em className="ap-none">—</em>}
                     </td>
-                    <td>
+                    <td data-label="">
                       <div className="ap-td-actions">
                         <button className="ap-btn-edit"    onClick={() => openEdit(row)} title="Edit"><EditIcon size={15} /></button>
                         <button className="ap-btn-archive" onClick={() => archive(row.id)} title="Archive"><ArchiveIcon size={15} /></button>
