@@ -128,8 +128,8 @@ export default function AdminEmployees() {
                 {rows.length === 0 && <tr><td colSpan={7} className="ap-empty">No employees found.</td></tr>}
                 {rows.map(row => (
                   <tr key={row.id}>
-                    <td data-label="Name" className="ap-td-name">{row.fullName}</td>
-                    <td data-label="Contact">
+                    <td className="ap-td-name">{row.fullName}</td>
+                    <td>
                       <div className="ap-contact-cell">
                         <a href={`tel:${row.phoneNumber}`} className="ap-action-call">
                           <PhoneIcon size={13} />
@@ -141,8 +141,8 @@ export default function AdminEmployees() {
                         </a>
                       </div>
                     </td>
-                    <td data-label="City">{row.city}</td>
-                    <td data-label="Zones">
+                    <td>{row.city}</td>
+                    <td>
                       <div className="ap-zones">
                         {(row.assignedZones ?? []).slice(0, 3).map(z => (
                           <span key={z} className="badge badge--sm badge--navy">{toTitle(z)}</span>
@@ -153,9 +153,9 @@ export default function AdminEmployees() {
                         {(row.assignedZones ?? []).length === 0 && <em className="ap-none">None</em>}
                       </div>
                     </td>
-                    <td data-label="Availability">{row.availability || <em className="ap-none">—</em>}</td>
-                    <td data-label="Status"><span className={`badge ${STATUS_COLORS[row.status]}`}>{STATUS_LABELS[row.status]}</span></td>
-                    <td data-label="">
+                    <td>{row.availability || <em className="ap-none">—</em>}</td>
+                    <td><span className={`badge ${STATUS_COLORS[row.status]}`}>{STATUS_LABELS[row.status]}</span></td>
+                    <td>
                       <div className="ap-td-actions">
                         <button className="ap-btn-edit"    onClick={() => openEdit(row)} title="Edit"><EditIcon size={15} /></button>
                         <button className="ap-btn-archive" onClick={() => archive(row.id)} title="Archive"><ArchiveIcon size={15} /></button>
