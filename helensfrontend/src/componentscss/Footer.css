@@ -236,6 +236,11 @@
   .footer-brand h1 {
     font-size: 1.5rem;
   }
+
+  .footer-col-title    { font-size: 1rem; }
+  .footer-col a        { font-size: 0.95rem; }
+  .footer-contact-item { font-size: 0.95rem; }
+  .footer-bottom-text  { font-size: 0.88rem; }
 }
 
 @media (max-width: 480px) {
@@ -247,6 +252,9 @@
     padding: 0 4px 20px;
   }
 
+  .footer-col-title    { font-size: 0.98rem; }
+  .footer-col a        { font-size: 0.93rem; }
+
   /* Payment grid: 2 colonnes sur petit écran */
   .payment-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -255,15 +263,15 @@
 
   .payment-card {
     min-height: 44px;
-    font-size: 0.65rem;
+    font-size: 0.72rem;
   }
 
   .payment-card.visa {
-    font-size: 0.82rem;
+    font-size: 0.88rem;
   }
 
   .payment-card.amex {
-    font-size: 0.52rem;
+    font-size: 0.6rem;
   }
 }
 

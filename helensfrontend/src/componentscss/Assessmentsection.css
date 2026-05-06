@@ -379,22 +379,30 @@
 @media (max-width: 860px) {
   .as-section  { padding: 72px 32px; }
   .as-inner    { grid-template-columns: 1fr; gap: 40px; }
-  .as-title    { font-size: clamp(1.6rem, 4vw, 2rem); }
-  .as-desc     { font-size: 0.97rem; }
+  .as-title    { font-size: clamp(1.65rem, 4vw, 2rem); }
+  .as-desc     { font-size: 1.02rem; }
   /* Contact row goes horizontal on tablet */
   .as-contact-row { flex-direction: row; flex-wrap: wrap; gap: 16px 32px; }
+  .as-contact-label { font-size: 0.88rem; }
+  .as-contact-value { font-size: 1rem; }
 }
 
 /* Large phone */
 @media (max-width: 640px) {
   .as-section          { padding: 64px 20px; }
+  .as-title            { font-size: clamp(1.55rem, 5vw, 1.85rem); }
+  .as-desc             { font-size: 1rem; }
   .as-form             { padding: 22px 20px 28px; gap: 14px; }
   .as-form-card-header { padding: 16px 20px; }
   .as-form-row         { grid-template-columns: 1fr; gap: 14px; }
   .as-contact-row      { flex-direction: column; gap: 12px; }
+  .as-label            { font-size: 0.9rem; }
+  .as-input            { font-size: 1rem; }
 }
 
 /* Small phone */
 @media (max-width: 420px) {
   .as-section { padding: 56px 16px; }
+  .as-title   { font-size: clamp(1.45rem, 5.5vw, 1.75rem); }
+  .as-desc    { font-size: 0.98rem; }
 }

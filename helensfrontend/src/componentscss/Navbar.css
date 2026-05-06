@@ -311,6 +311,8 @@
   .nav-brand-name { font-size: 1.55rem; }
   .nav-logo { width: 48px; height: 48px; }
   .nav-brand { gap: 10px; }
+  .nav-link   { font-size: 1.05rem; }
+  .nav-dropdown a { font-size: 0.97rem; }
 }
 
 /* Medium phones */
@@ -320,6 +322,7 @@
   .nav-brand-name { font-size: 1.45rem; }
   .nav-logo { width: 44px; height: 44px; }
   .nav-brand { gap: 8px; }
+  .nav-link   { font-size: 1.02rem; }
 }
 
 /* Small phones */

@@ -702,19 +702,24 @@
 
   .au-hero             { min-height: auto; padding: 100px 20px 60px; }
   .au-hero-inner       { grid-template-columns: 1fr; gap: 40px; }
-  .au-hero-headline    { font-size: clamp(1.9rem, 6vw, 2.6rem); }
+  .au-hero-headline    { font-size: clamp(1.95rem, 6vw, 2.6rem); }
   .au-hero-img         { height: 340px; }
+  .au-hero-sub         { font-size: 1.08rem; }
 
   .au-story            { padding: var(--sp-v) 20px; }
   .au-story-inner      { grid-template-columns: 1fr; gap: 56px; }
   .au-story-accent-card { right: 0; bottom: -24px; max-width: 220px; }
   .au-story-img        { height: 320px; }
+  .au-story-body p     { font-size: 1.02rem; }
 
   .au-mission          { padding: var(--sp-v) 20px; }
   .au-stats            { grid-template-columns: 1fr; gap: 16px; max-width: 360px; margin: 0 auto; }
+  .au-mission-body p   { font-size: 1.02rem; }
 
   .au-values           { padding: var(--sp-v) 20px; }
   .au-values-grid      { grid-template-columns: 1fr; gap: 20px; max-width: 480px; margin: 0 auto; }
+  .au-val-title        { font-size: 1.18rem; }
+  .au-val-desc         { font-size: 1rem; }
 
   .au-areas            { padding: var(--sp-v) 20px; }
   .au-areas-inner      { grid-template-columns: 1fr; gap: 40px; }
@@ -722,13 +727,16 @@
 
   .au-cta              { padding: 56px 20px; }
   .au-cta-inner        { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .au-cta-title        { font-size: clamp(1.5rem, 4vw, 2rem); }
+  .au-cta-sub          { font-size: 1.02rem; }
 }
 
 @media (max-width: 600px) {
   :root { --sp-v: 52px; }
 
   .au-hero                   { padding: 90px 16px 52px; }
-  .au-hero-headline          { font-size: clamp(1.6rem, 7.5vw, 2.1rem); }
+  .au-hero-headline          { font-size: clamp(1.65rem, 7.5vw, 2.15rem); }
+  .au-hero-sub               { font-size: 1.05rem; }
   .au-hero-actions           { flex-direction: column; }
   .au-btn-primary,
   .au-btn-secondary          { width: 100%; justify-content: center; }
@@ -741,6 +749,9 @@
   .au-cta                    { padding: var(--sp-v) 16px; }
 
   .au-story-accent-card      { position: static; margin-top: 16px; max-width: 100%; }
+
+  .au-val-title              { font-size: 1.15rem; }
+  .au-val-desc               { font-size: 0.98rem; }
 
   .au-cta-actions            { width: 100%; flex-direction: column; }
 }

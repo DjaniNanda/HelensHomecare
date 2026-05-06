@@ -481,6 +481,13 @@
   .hp-faq       { padding: 64px 0; }
   .hp-cta       { padding: 64px 0; }
 
+  .hp-hero-headline   { font-size: clamp(1.75rem, 5.5vw, 2.5rem); }
+  .hp-hero-sub        { font-size: 1.05rem; }
+  .hp-step-title      { font-size: clamp(1.2rem, 3vw, 1.55rem); }
+  .hp-step-desc       { font-size: 1rem; }
+  .hp-faq-question    { font-size: 1.02rem; }
+  .hp-faq-answer      { font-size: 0.98rem; }
+
   .hp-step-node { width: 56px; height: 56px; }
   .hp-step-node svg { width: 18px; height: 18px; }
   .hp-step { grid-template-columns: 56px 1fr; gap: 18px; }
@@ -494,6 +501,11 @@
   .hp-cta-actions   { flex-direction: column; align-items: center; }
   .hp-btn-gold,
   .hp-btn-ghost { width: 100%; justify-content: center; }
+
+  .hp-hero-headline   { font-size: clamp(1.6rem, 6vw, 2rem); }
+  .hp-hero-sub        { font-size: 1.02rem; }
+  .hp-step-title      { font-size: clamp(1.15rem, 3.5vw, 1.45rem); }
+  .hp-step-desc       { font-size: 0.98rem; }
 
   .hp-step-node { width: 48px; height: 48px; }
   .hp-step { grid-template-columns: 48px 1fr; gap: 14px; }

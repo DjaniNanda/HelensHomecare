@@ -507,4 +507,14 @@
   .ap-card-footer { flex-direction: column-reverse; align-items: stretch; }
   .ap-btn-back, .ap-btn-next { width: 100%; text-align: center; }
   .ap-api-error { margin: 0 20px; }
+
+  .ap-hero-headline  { font-size: clamp(1.65rem, 6vw, 2.2rem); }
+  .ap-hero-sub       { font-size: 1.05rem; }
+  .ap-step-title     { font-size: 1.12rem; }
+  .ap-step-intro     { font-size: 1rem; }
+  .ap-field > label  { font-size: 0.9rem; }
+  .ap-field input,
+  .ap-field select,
+  .ap-field textarea { font-size: 1rem; }
+  .ap-btn-next       { font-size: 1.02rem; }
 }

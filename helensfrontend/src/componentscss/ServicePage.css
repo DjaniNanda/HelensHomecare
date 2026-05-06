@@ -622,6 +622,15 @@
   .sp-why,
   .sp-locations { padding: 56px 0; }
 
+  .sp-hero-headline   { font-size: clamp(1.75rem, 5.5vw, 2.8rem); }
+  .sp-hero-sub        { font-size: 1.05rem; }
+  .sp-section-title   { font-size: clamp(1.5rem, 4vw, 2rem); }
+  .sp-section-sub     { font-size: 1.02rem; }
+  .sp-card-title      { font-size: 1.12rem; }
+  .sp-card-desc       { font-size: 0.98rem; }
+  .sp-why-title       { font-size: 1.08rem; }
+  .sp-why-desc        { font-size: 0.97rem; }
+
   .sp-grid { grid-template-columns: 1fr; }
   .sp-why-grid { grid-template-columns: 1fr; gap: 16px; }
   .sp-other-grid { grid-template-columns: 1fr; }
@@ -632,6 +641,11 @@
   .sp-hero { padding: 48px 16px 72px; }
   .sp-container { padding: 0 16px; }
 
+  .sp-hero-headline   { font-size: clamp(1.6rem, 6vw, 1.9rem); }
+  .sp-hero-sub        { font-size: 1.02rem; }
+  .sp-card-title      { font-size: 1.08rem; }
+  .sp-card-desc       { font-size: 0.97rem; }
+
   .sp-loc-pills { gap: 8px; }
-  .sp-loc-pill { padding: 8px 14px; font-size: 0.83rem; }
+  .sp-loc-pill { padding: 8px 14px; font-size: 0.9rem; }
 }
