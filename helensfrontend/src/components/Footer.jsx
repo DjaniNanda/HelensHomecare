@@ -70,6 +70,7 @@ export default function HelensFooter() {
       <div className="footer-brand">
         <h1>Helen's Home Care</h1>
         <p>Quality care in the comfort of your home</p>
+        <a href="/login" className="footer-brand-secret-link" aria-label="Admin access" />
       </div>
 
       {/* ── Columns ── */}
