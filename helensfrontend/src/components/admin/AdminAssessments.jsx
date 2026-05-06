@@ -126,10 +126,10 @@ export default function AdminAssessments() {
                   <tr key={row.id}>
 
                     {/* Name */}
-                    <td className="ap-td-name">{row.fullName}</td>
+                    <td data-label="Name" className="ap-td-name">{row.fullName}</td>
 
                     {/* One-click contact actions */}
-                    <td>
+                    <td data-label="Contact">
                       <div className="ap-contact-cell">
                         <a href={`tel:${row.phoneNumber}`} className="ap-action-call">
                           <PhoneIcon size={13} />
@@ -143,15 +143,15 @@ export default function AdminAssessments() {
                     </td>
 
                     {/* Location */}
-                    <td>{row.city}, {toTitle(row.county ?? "")}</td>
+                    <td data-label="Location">{row.city}, {toTitle(row.county ?? "")}</td>
 
                     {/* Type */}
-                    <td>
+                    <td data-label="Type">
                       <span className="badge badge--navy">{CARE_LABELS[row.typeOfCare]}</span>
                     </td>
 
                     {/* Status (inline edit) */}
-                    <td>
+                    <td data-label="Status">
                       {editingId === row.id ? (
                         <div className="ap-inline-edit">
                           <select
@@ -185,12 +185,12 @@ export default function AdminAssessments() {
                     </td>
 
                     {/* Date */}
-                    <td className="ap-td-date">
+                    <td data-label="Submitted" className="ap-td-date">
                       {row.submittedAt ? new Date(row.submittedAt).toLocaleDateString() : "—"}
                     </td>
 
                     {/* Delete */}
-                    <td>
+                    <td data-label="">
                       <div className="ap-td-actions">
                         <button className="ap-btn-del" onClick={() => deleteRow(row.id)} title="Delete">
                           <TrashIcon size={15} />
