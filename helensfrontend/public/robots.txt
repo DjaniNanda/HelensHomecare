@@ -6,4 +6,4 @@ Disallow: /admin
 Disallow: /login
 
 # Sitemap location
-Sitemap: https://www.helenshomecare.com/sitemap.xml
+Sitemap: https://www.helenshomecarellc.com/sitemap.xml
