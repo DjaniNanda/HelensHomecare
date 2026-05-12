@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "../componentscss/Footer.css";
 
 const careServices = [
@@ -13,15 +12,8 @@ const careServices = [
 ];
 
 const locations = [
-  { label: "Gwinnett",  href: "/assessment" },
-  { label: "DeKalb",    href: "/assessment" },
-  { label: "Cobb",      href: "/assessment" },
-  { label: "Fulton",    href: "/assessment" },
-  { label: "Clayton",   href: "/assessment" },
-  { label: "Henry",     href: "/assessment" },
-  { label: "Walton",    href: "/assessment" },
-  { label: "Rockdale",  href: "/assessment" },
-  { label: "Forsyth",   href: "/assessment" },
+  "Gwinnett", "DeKalb", "Cobb", "Fulton",
+  "Clayton", "Henry", "Walton", "Rockdale", "Forsyth",
 ];
 
 const payments = [
@@ -100,9 +92,7 @@ export default function HelensFooter() {
           <h3>Location Services</h3>
           <ul className="footer-list">
             {locations.map((loc) => (
-              <li key={loc.label}>
-                <Link to={loc.href} className="footer-link">{loc.label}</Link>
-              </li>
+              <li key={loc}>{loc}</li>
             ))}
           </ul>
         </div>
