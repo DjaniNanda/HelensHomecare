@@ -81,9 +81,7 @@ export default function HelensFooter() {
           <h3>Care Services</h3>
           <ul className="footer-list">
             {careServices.map((s) => (
-              <li key={s.label}>
-                <Link to={s.href}>{s.label}</Link>
-              </li>
+              <li key={s}>{s}</li>
             ))}
           </ul>
         </div>
