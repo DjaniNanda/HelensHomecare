@@ -157,7 +157,7 @@
   background: linear-gradient(135deg, var(--c-deep) 0%, var(--c-blue) 60%, #3a8ba8 100%);
   display: flex;
   align-items: center;
-  padding: 110px var(--sp-h) 80px;
+  padding: 10px var(--sp-h) 80px;
   overflow: hidden;
 }
 
@@ -182,7 +182,7 @@
 
 .hero-inner {
   position: relative;
-  z-index: 0;
+  z-index: 1;
   max-width: var(--max-w);
   width: 100%;
   margin: 0 auto;
