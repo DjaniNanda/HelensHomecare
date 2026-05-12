@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import AssessmentSection from "./Assessmentsection.jsx";
 import "../componentscss/Home.css";
 import { useReveal } from "../hooks/useReveal";
@@ -14,6 +15,7 @@ import SEO from './SEO.jsx';
 const SERVICES = [
   {
     accent: "blue",
+    href: "/services/senior-home-care",
     title: "Senior Home Care",
     desc: "Comprehensive, compassionate care tailored to each senior's unique needs — delivered in the comfort of their own home.",
     features: ["Personalized care plans", "Skilled caregivers", "Family communication"],
@@ -21,6 +23,7 @@ const SERVICES = [
   },
   {
     accent: "gold",
+    href: "/services/personal-care",
     title: "Personal Care Services",
     desc: "Hands-on assistance with daily activities — bathing, grooming, dressing, mobility — preserving dignity at every step.",
     features: ["Bathing & grooming", "Mobility & transfers", "Medication reminders"],
@@ -28,6 +31,7 @@ const SERVICES = [
   },
   {
     accent: "sky",
+    href: "/services/companion-care",
     title: "Companion Care",
     desc: "Meaningful social engagement, errands, light housekeeping, and daily living support that keeps loneliness at bay.",
     features: ["Emotional support", "Transportation & errands", "Light housekeeping"],
@@ -35,6 +39,7 @@ const SERVICES = [
   },
   {
     accent: "blue",
+    href: "/services/24-7-in-home-care",
     title: "24 / 7 In-Home Care",
     desc: "Around-the-clock coverage for clients who need continuous support — day, night, weekends, and holidays.",
     features: ["Overnight care", "Weekend & holiday cover", "Flexible scheduling"],
@@ -42,6 +47,7 @@ const SERVICES = [
   },
   {
     accent: "gold",
+    href: "/services/hospital-to-home",
     title: "Hospital-to-Home Transition",
     desc: "Safe, smooth recovery support after hospitalisation — reducing readmission risk and easing the transition home.",
     features: ["Post-discharge planning", "Follow-up coordination", "Safety home checks"],
@@ -49,6 +55,7 @@ const SERVICES = [
   },
   {
     accent: "sky",
+    href: "/services/dementia-care",
     title: "Dementia & Alzheimer's Care",
     desc: "Specialised memory care in a familiar setting, supporting both clients and their families through every stage.",
     features: ["Memory care routines", "Behaviour management", "Family guidance"],
@@ -101,22 +108,22 @@ function DualCtaBanner() {
       transition: 'opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1)'
     }}>
       {/* Card 1 — Free Assessment */}
-      <a href="/assessment" className="dual-cta-card">
+      <Link to="/assessment" className="dual-cta-card">
         <img src="/4.jfif" alt="Caregiver speaking with elderly woman" className="dual-cta-card-bg" />
         <div className="dual-cta-card-body">
           <h3 className="dual-cta-card-title">Interested in a<br />Free Assessment?</h3>
           <span className="dual-cta-card-btn">Schedule Now</span>
         </div>
-      </a>
+      </Link>
 
       {/* Card 2 — Become a Caregiver */}
-      <a href="/hiring-process" className="dual-cta-card">
+      <Link to="/hiring-process" className="dual-cta-card">
         <img src="/3.jfif" alt="Caregiver assisting elderly patient at home" className="dual-cta-card-bg" />
         <div className="dual-cta-card-body">
           <h3 className="dual-cta-card-title">Interested in Becoming<br />a Caregiver?</h3>
           <span className="dual-cta-card-btn">Learn More</span>
         </div>
-      </a>
+      </Link>
     </div>
   );
 }
@@ -242,8 +249,7 @@ function HomeCareExplainer() {
             a few hours or continuous 24/7 support, our care coordinators will
             design a personalized plan built entirely around your needs.
           </p>
-          {/* ── ocuppe toi  du href ── */}
-          <a href="#assessment" className="hce-cta">Learn More</a>
+          <Link to="/assessment" className="hce-cta">Learn More</Link>
         </div>
 
         {/* ── Right grid ── */}
@@ -290,9 +296,9 @@ function ServiceCard({ svc, index }) {
             </li>
           ))}
         </ul>
-        <a href="/assessment" className={`svc-card-link svc-card-link--${svc.accent}`}>
+        <Link to={svc.href || "/assessment"} className={`svc-card-link svc-card-link--${svc.accent}`}>
           Request This Service <ArrowIcon />
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -350,9 +356,9 @@ export default function Home() {
             </p>
 
             <div className="hero-actions">
-              <a href="/assessment" className="btn-primary">
+              <Link to="/assessment" className="btn-primary">
                 Request a Free Assessment
-              </a>
+              </Link>
               <a href="tel:+17708614402" className="btn-secondary">
                 Call Us — 770-861-4402
               </a>

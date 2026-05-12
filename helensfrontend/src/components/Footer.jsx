@@ -1,19 +1,27 @@
+import { Link } from "react-router-dom";
 import "../componentscss/Footer.css";
 
 const careServices = [
-  "Senior Home Care Services",
-  "Personal Care Services",
-  "24/7 In-Home Care",
-  "Companion Care Service",
-  "Hospital to Home Transition Care",
-  "Assistance Before & After Surgery",
-  "Dementia Care Services",
-  "Alzheimer's Care Services",
+  { label: "Senior Home Care Services",         href: "/services/senior-home-care" },
+  { label: "Personal Care Services",            href: "/services/personal-care" },
+  { label: "24/7 In-Home Care",                 href: "/services/24-7-in-home-care" },
+  { label: "Companion Care Service",            href: "/services/companion-care" },
+  { label: "Hospital to Home Transition Care",  href: "/services/hospital-to-home" },
+  { label: "Assistance Before & After Surgery", href: "/services/surgery-assistance" },
+  { label: "Dementia Care Services",            href: "/services/dementia-care" },
+  { label: "Alzheimer's Care Services",         href: "/services/alzheimers-care" },
 ];
 
 const locations = [
-  "Gwinnett", "DeKalb", "Cobb", "Fulton",
-  "Clayton", "Henry", "Walton", "Rockdale", "Forsyth",
+  { label: "Gwinnett",  href: "/assessment" },
+  { label: "DeKalb",    href: "/assessment" },
+  { label: "Cobb",      href: "/assessment" },
+  { label: "Fulton",    href: "/assessment" },
+  { label: "Clayton",   href: "/assessment" },
+  { label: "Henry",     href: "/assessment" },
+  { label: "Walton",    href: "/assessment" },
+  { label: "Rockdale",  href: "/assessment" },
+  { label: "Forsyth",   href: "/assessment" },
 ];
 
 const payments = [
@@ -80,7 +88,9 @@ export default function HelensFooter() {
           <h3>Care Services</h3>
           <ul className="footer-list">
             {careServices.map((s) => (
-              <li key={s}>{s}</li>
+              <li key={s.label}>
+                <Link to={s.href} className="footer-link">{s.label}</Link>
+              </li>
             ))}
           </ul>
         </div>
@@ -90,7 +100,9 @@ export default function HelensFooter() {
           <h3>Location Services</h3>
           <ul className="footer-list">
             {locations.map((loc) => (
-              <li key={loc}>{loc}</li>
+              <li key={loc.label}>
+                <Link to={loc.href} className="footer-link">{loc.label}</Link>
+              </li>
             ))}
           </ul>
         </div>

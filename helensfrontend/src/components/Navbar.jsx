@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import "../componentscss/Navbar.css"
 import { PhoneIcon, CareIcon, ChevronIcon } from "./icons"
 
@@ -54,10 +55,10 @@ function NavItem({ item, onClose }) {
       </button>
       <div className="nav-dropdown" role="menu">
         {item.links.map(link => (
-          <a key={link.label} href={link.href} role="menuitem"
+          <Link key={link.label} to={link.href} role="menuitem"
             onClick={() => { setOpen(false); onClose?.() }}>
             {link.label}
-          </a>
+          </Link>
         ))}
       </div>
     </li>
@@ -88,13 +89,13 @@ export default function Navbar() {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} role="navigation" aria-label="Main navigation">
 
         {/* Brand */}
-        <a href="/" className="nav-brand" aria-label="Helen's Home Care – Home">
+        <Link to="/" className="nav-brand" aria-label="Helen's Home Care – Home">
           <img src="/logo.png" alt="Helen's Home Care logo" className="nav-logo" />
           <div className="nav-brand-text">
             <span className="nav-brand-name">Helen's Home Care</span>
             <span className="nav-brand-sub">Quality care in the comfort of your home</span>
           </div>
-        </a>
+        </Link>
 
         {/* Center links */}
         <ul className={`nav-links ${menuOpen ? 'open' : ''}`} role="menubar">
@@ -103,14 +104,14 @@ export default function Navbar() {
           ))}
           {/* Mobile drawer CTA */}
           <li className="nav-cta-mobile-wrap">
-            <a href="/assessment" className="nav-cta" onClick={closeMenu}><span className="floating-label">Request Care Now</span></a>
+            <Link to="/assessment" className="nav-cta" onClick={closeMenu}><span className="floating-label">Request Care Now</span></Link>
           </li>
         </ul>
 
         {/* Desktop CTA */}
-        <a href="/assessment" className="nav-cta nav-cta-desktop" aria-label="Request care now">
+        <Link to="/assessment" className="nav-cta nav-cta-desktop" aria-label="Request care now">
           Request Care Now
-        </a>
+        </Link>
 
         {/* Hamburger */}
         <button
@@ -134,11 +135,11 @@ export default function Navbar() {
         </a>
 
         {/* Request Care — mobile only */}
-        <a href="/assessment" className="floating-btn floating-btn-care"
+        <Link to="/assessment" className="floating-btn floating-btn-care"
           aria-label="Request care now">
           <CareIcon className="floating-icon" />
           Request Care Now
-        </a>
+        </Link>
 
       </div>
     </>
