@@ -157,7 +157,7 @@
   background: linear-gradient(135deg, var(--c-deep) 0%, var(--c-blue) 60%, #3a8ba8 100%);
   display: flex;
   align-items: center;
-  padding: 10px var(--sp-h) 80px;
+  padding: 70px var(--sp-h) 80px;
   overflow: hidden;
 }
 
