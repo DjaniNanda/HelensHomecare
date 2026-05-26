@@ -86,13 +86,6 @@ function SidebarInfo() {
   return (
     <aside className="ci-sidebar-box">
       <div className="ci-sidebar-item">
-        <span className="ci-sidebar-icon"><LockIcon size={20} /></span>
-        <div>
-          <strong>100% Confidential</strong>
-          <p>Your information is never shared without your consent.</p>
-        </div>
-      </div>
-      <div className="ci-sidebar-item">
         <span className="ci-sidebar-icon"><PhoneIcon size={20} /></span>
         <div>
           <strong>We'll Call You</strong>
@@ -103,7 +96,7 @@ function SidebarInfo() {
         <span className="ci-sidebar-icon"><StarIcon size={20} /></span>
         <div>
           <strong>Great Benefits</strong>
-          <p>Competitive pay, flexible schedules, and a team that truly supports you.</p>
+          <p>Flexible schedules, and a team that truly supports you.</p>
         </div>
       </div>
     </aside>
@@ -326,10 +319,7 @@ function SuccessState({ name }) {
       </div>
 
       <div className="ci-success-actions">
-        <a href="tel:+17708614402" className="ci-success-call">
-          <PhoneIcon size={16} style={{ marginRight: 6, verticalAlign: "middle" }} />
-          Call us directly — 770-861-4402
-        </a>
+ 
         <a href="/job-info" className="ci-success-home">← View open positions</a>
       </div>
     </div>
@@ -458,7 +448,7 @@ export default function CaregiverInterviewPage() {
             </p>
             <div className="ci-hero-trust">
               <span><CheckIcon size={14} /> Flexible Schedules</span>
-              <span><CheckIcon size={14} /> Competitive Pay</span>
+              <span><CheckIcon size={14} /> Confidential</span>
               <span><CheckIcon size={14} /> Supportive Team</span>
             </div>
           </div>
@@ -514,13 +504,6 @@ export default function CaregiverInterviewPage() {
               {/* ── Sidebar ── */}
               <aside className="ci-sidebar">
                 <SidebarInfo />
-                <a href="tel:+17708614402" className="ci-contact-card-link">
-                  <div className="ci-contact-card">
-                    <p className="ci-contact-card-label">Prefer to call?</p>
-                    <PhoneIcon size={14} style={{ marginRight: 4, verticalAlign: "middle" }} />770-861-4402
-                    <p className="ci-contact-card-hours">Mon – Fri · 9 AM – 5 PM</p>
-                  </div>
-                </a>
               </aside>
             </div>
           )}
