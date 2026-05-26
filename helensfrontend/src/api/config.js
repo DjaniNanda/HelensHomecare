@@ -8,7 +8,8 @@ export const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 // update any other file when the server address changes.
 export const API = {
   // Public
-  assessments:       `${BASE_URL}/api/assessments`,
+  assessments:          `${BASE_URL}/api/assessments`,
+  caregiverApplications:`${BASE_URL}/api/caregiver-applications`,
 
   // Auth
   login:             `${BASE_URL}/api/auth/login`,

@@ -19,8 +19,8 @@ import SEO from './SEO.jsx';
 const STEPS = [
   {
     step: "01",
-    title: "Fill Out the Assessment",
-    desc: "Complete our quick online assessment form — it takes less than 5 minutes. Tell us about your experience, availability, and the type of care role you're interested in. No lengthy resume required.",
+    title: "Submit Your Interview Request",
+    desc: "Complete our quick online interview form — it takes less than 5 minutes. Tell us about your experience, availability, and the type of care role you're interested in. No lengthy resume required.",
     duration: "Day 1",
     image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=700&q=80",
     imageAlt: "Person filling out an online form",
@@ -28,7 +28,7 @@ const STEPS = [
   {
     step: "02",
     title: "Confirmation Email",
-    desc: "Once you submit your assessment, you'll receive an automatic confirmation email acknowledging your application. Keep an eye on your inbox — our team reviews every submission within 1 business day.",
+    desc: "Once you submit your interview request, you'll receive an automatic confirmation email acknowledging your application. Keep an eye on your inbox — our team reviews every submission within 1 business day.",
     duration: "Day 1 – 2",
     image: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=700&q=80",
     imageAlt: "Email confirmation on a laptop",
@@ -118,7 +118,7 @@ function HPHero() {
           little as two weeks. Here's exactly what to expect — no surprises, no long waits.
         </p>
         <div className="hp-hero-actions">
-          <a href="/assessment" className="hp-btn-gold">
+          <a href="/caregiver-interview" className="hp-btn-gold">
             <MailIcon size={17} /> Apply Now
           </a>
           <a href="/job-info" className="hp-btn-ghost">
@@ -183,7 +183,7 @@ function Timeline() {
           className={`hp-section-head hp-reveal ${titleVisible ? "hp-revealed" : ""}`}
         >
           <span className="hp-tag">Step by Step</span>
-          <h2 className="hp-section-title">From Assessment to First Shift</h2>
+          <h2 className="hp-section-title">From Application to First Shift</h2>
           <p className="hp-section-sub">
             Six clear steps. We keep you informed at every stage so you always know what's next.
           </p>
@@ -265,11 +265,11 @@ function HPCTA() {
           <CheckCircleIcon size={52} className="hp-cta-icon" />
           <h2 className="hp-cta-title">Ready to Start?</h2>
           <p className="hp-cta-sub">
-            The first step takes less than 5 minutes. Fill out the assessment and we'll take it from there.
+            The first step takes less than 5 minutes. Fill out the interview form and we'll take it from there.
           </p>
           <div className="hp-cta-actions">
-            <a href="/assessment" className="hp-btn-gold">
-              <ClipboardIcon size={18} /> Fill Out Assessment
+            <a href="/caregiver-interview" className="hp-btn-gold">
+              <ClipboardIcon size={18} /> Submit Interview Request
             </a>
             <a href="/job-info" className="hp-btn-ghost">
               <BriefcaseIcon size={18} /> Browse Positions <ArrowIcon size={14} />

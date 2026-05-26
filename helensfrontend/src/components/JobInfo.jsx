@@ -112,7 +112,7 @@ function JobHero() {
           </p>
           <div className="ji-hero-actions">
             <a href="#positions" className="ji-btn-gold">View Open Positions</a>
-            <a href="/assessment" className="ji-btn-ghost">
+            <a href="/caregiver-interview" className="ji-btn-ghost">
               Apply Now <ArrowIcon size={15} />
             </a>
           </div>
@@ -215,7 +215,7 @@ function PositionCard({ pos, delay }) {
           <li key={r}><CheckIcon size={13} />{r}</li>
         ))}
       </ul>
-      <a href="/assessment" className="ji-pos-apply-btn">
+      <a href="/caregiver-interview" className="ji-pos-apply-btn">
         Apply for this Role <ArrowIcon size={14} />
       </a>
     </article>

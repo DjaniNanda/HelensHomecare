@@ -5,7 +5,8 @@ import Footer         from "./components/Footer";
 import Navbar         from "./components/Navbar";
 import Home           from "./components/Home";
 import AboutUs        from "./components/AboutUs";
-import AssessmentPage from "./components/AssessmentPage";
+import AssessmentPage          from "./components/AssessmentPage";
+import CaregiverInterviewPage  from "./components/CaregiverInterviewPage";
 import LoginPage      from "./components/LoginPage";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import JobInfo        from "./components/JobInfo";
@@ -45,7 +46,8 @@ function AppRoutes() {
       <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
       <Route path="/about"          element={<PublicLayout><AboutUs /></PublicLayout>} />
       <Route path="/reviews"         element={<PublicLayout><ReviewsPage /></PublicLayout>} />
-      <Route path="/assessment"    element={<PublicLayout><AssessmentPage /></PublicLayout>} />
+      <Route path="/assessment"           element={<PublicLayout><AssessmentPage /></PublicLayout>} />
+      <Route path="/caregiver-interview"  element={<PublicLayout><CaregiverInterviewPage /></PublicLayout>} />
       <Route path="/job-info"       element={<PublicLayout><JobInfo /></PublicLayout>} />
       <Route path="/hiring-process" element={<PublicLayout><HiringProcess /></PublicLayout>} />
 
