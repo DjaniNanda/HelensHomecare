@@ -263,40 +263,58 @@
 .ci-err-msg { font-size: 0.78rem; color: var(--err); font-weight: 600; }
 
 /* ═══════════════════════════════════════
-   SCHEDULE CARDS
+   FIELD HINT
 ═══════════════════════════════════════ */
-.ci-schedule-options {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+.ci-field-hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: -4px 0 2px;
+  line-height: 1.5;
 }
 
-.ci-schedule-card {
+/* ═══════════════════════════════════════
+   DAY PICKER
+═══════════════════════════════════════ */
+.ci-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.ci-day-card {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 14px 16px;
+  gap: 6px;
+  padding: 14px 6px 10px;
   border-radius: 10px;
   border: 2px solid var(--border);
   background: var(--blue-light);
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--navy);
   transition: all 0.2s var(--ease);
+  letter-spacing: 0.3px;
 }
-.ci-schedule-card:hover       { border-color: var(--gold); background: var(--gold-light); }
-.ci-schedule-card--active {
+.ci-day-card:hover {
+  border-color: var(--gold);
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212,168,67,0.18);
+}
+.ci-day-card--active {
   border-color: var(--gold);
   background: var(--gold-light);
   box-shadow: 0 0 0 3px rgba(212,168,67,0.2);
+  color: var(--navy);
 }
 
-.ci-schedule-check {
-  width: 20px; height: 20px;
+.ci-day-check {
+  width: 18px; height: 18px;
   border-radius: 50%;
   background: var(--gold);
   color: var(--navy);
@@ -493,7 +511,7 @@
   .ci-card-header, .ci-step-body, .ci-card-footer { padding-left: 20px; padding-right: 20px; }
   .ci-progress { padding-left: 20px; padding-right: 20px; }
   .ci-field-row { grid-template-columns: 1fr; }
-  .ci-schedule-options { grid-template-columns: 1fr 1fr; }
+  .ci-days-grid { grid-template-columns: repeat(4, 1fr); }
   .ci-step-label { display: none; }
   .ci-success { padding: 36px 24px; }
   .ci-card-footer { flex-direction: column-reverse; align-items: stretch; }

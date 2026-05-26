@@ -26,30 +26,24 @@ const COUNTIES = [
   { value: "FORSYTH",   label: "Forsyth"   },
 ];
 
-const EXPERIENCE_OPTIONS = [
-  { value: "LESS_THAN_1", label: "Less than 1 year" },
-  { value: "ONE_TO_THREE", label: "1 – 3 years"     },
-  { value: "THREE_TO_FIVE", label: "3 – 5 years"    },
-  { value: "FIVE_PLUS", label: "5+ years"            },
-];
-
-const SCHEDULE_OPTIONS = [
-  { value: "FULL_TIME",  label: "Full-Time"    },
-  { value: "PART_TIME",  label: "Part-Time"    },
-  { value: "BOTH",       label: "Either / Both" },
-  { value: "LIVE_IN",    label: "Live-In"       },
+const DAYS_OF_WEEK = [
+  { value: "MON", label: "Mon" },
+  { value: "TUE", label: "Tue" },
+  { value: "WED", label: "Wed" },
+  { value: "THU", label: "Thu" },
+  { value: "FRI", label: "Fri" },
+  { value: "SAT", label: "Sat" },
+  { value: "SUN", label: "Sun" },
 ];
 
 const INITIAL = {
-  firstName:    "",
-  lastName:     "",
-  email:        "",
-  phoneNumber:  "",
-  county:       "",
-  city:         "",
-  experience:   "",
-  schedule:     "",
-  message:      "",
+  firstName:        "",
+  lastName:         "",
+  email:            "",
+  phoneNumber:      "",
+  county:           "",
+  city:             "",
+  availableDays:    [],
 };
 
 /* ═══════════════════════════════════════
@@ -163,13 +157,21 @@ function Step1({ data, set, errors }) {
 }
 
 /* ═══════════════════════════════════════
-   STEP 2 — Experience & Availability
+   STEP 2 — Location & Availability
 ═══════════════════════════════════════ */
 function Step2({ data, set, errors }) {
+  const toggleDay = (day) => {
+    const current = data.availableDays;
+    const updated = current.includes(day)
+      ? current.filter(d => d !== day)
+      : [...current, day];
+    set("availableDays", updated);
+  };
+
   return (
     <div className="ci-step-body">
       <p className="ci-step-intro">
-        Help us understand your background and what you're looking for.
+        Let us know your location and which days you're available to work.
       </p>
 
       <div className="ci-field-row">
@@ -200,53 +202,30 @@ function Step2({ data, set, errors }) {
         </div>
       </div>
 
+      {/* Availability Days */}
       <div className="ci-field">
-        <label htmlFor="experience">Years of Caregiving Experience <span className="ci-req">*</span></label>
-        <select
-          id="experience"
-          value={data.experience}
-          onChange={e => set("experience", e.target.value)}
-          className={`ci-input ci-select${errors.experience ? " ci-input--err" : ""}`}
-        >
-          <option value="">Select your experience level…</option>
-          {EXPERIENCE_OPTIONS.map(o => (
-            <option key={o.value} value={o.value}>{o.label}</option>
-          ))}
-        </select>
-        {errors.experience && <span className="ci-err-msg">{errors.experience}</span>}
-      </div>
-
-      <div className="ci-field">
-        <label>Preferred Schedule <span className="ci-req">*</span></label>
-        <div className="ci-schedule-options">
-          {SCHEDULE_OPTIONS.map(opt => (
-            <button
-              key={opt.value}
-              type="button"
-              className={`ci-schedule-card${data.schedule === opt.value ? " ci-schedule-card--active" : ""}`}
-              onClick={() => set("schedule", opt.value)}
-              aria-pressed={data.schedule === opt.value}
-            >
-              {opt.label}
-              {data.schedule === opt.value && (
-                <span className="ci-schedule-check"><CheckIcon size={12} /></span>
-              )}
-            </button>
-          ))}
+        <label>Days Available <span className="ci-req">*</span></label>
+        <p className="ci-field-hint">Select all days you're available to work.</p>
+        <div className="ci-days-grid">
+          {DAYS_OF_WEEK.map(day => {
+            const selected = data.availableDays.includes(day.value);
+            return (
+              <button
+                key={day.value}
+                type="button"
+                className={`ci-day-card${selected ? " ci-day-card--active" : ""}`}
+                onClick={() => toggleDay(day.value)}
+                aria-pressed={selected}
+              >
+                {day.label}
+                {selected && (
+                  <span className="ci-day-check"><CheckIcon size={10} /></span>
+                )}
+              </button>
+            );
+          })}
         </div>
-        {errors.schedule && <span className="ci-err-msg">{errors.schedule}</span>}
-      </div>
-
-      <div className="ci-field">
-        <label htmlFor="message">Anything else you'd like us to know? <span className="ci-opt">(optional)</span></label>
-        <textarea
-          id="message"
-          rows={4}
-          placeholder="e.g. certifications you hold, languages you speak, specific care experience…"
-          value={data.message}
-          onChange={e => set("message", e.target.value)}
-          className="ci-input ci-textarea"
-        />
+        {errors.availableDays && <span className="ci-err-msg">{errors.availableDays}</span>}
       </div>
 
       {/* Summary */}
@@ -264,6 +243,14 @@ function Step2({ data, set, errors }) {
           <div className="ci-summary-item">
             <span className="ci-summary-label">Email</span>
             <span className="ci-summary-val">{data.email || "—"}</span>
+          </div>
+          <div className="ci-summary-item">
+            <span className="ci-summary-label">Available Days</span>
+            <span className="ci-summary-val">
+              {data.availableDays.length > 0
+                ? data.availableDays.join(", ")
+                : "—"}
+            </span>
           </div>
         </div>
       </div>
@@ -319,7 +306,6 @@ function SuccessState({ name }) {
       </div>
 
       <div className="ci-success-actions">
- 
         <a href="/job-info" className="ci-success-home">← View open positions</a>
       </div>
     </div>
@@ -339,10 +325,9 @@ function validate(step, data) {
     if (!data.phoneNumber.trim()) errs.phoneNumber = "Phone number is required.";
   }
   if (step === 2) {
-    if (!data.county)     errs.county     = "Please select your county.";
-    if (!data.city.trim()) errs.city      = "City is required.";
-    if (!data.experience) errs.experience = "Please select your experience level.";
-    if (!data.schedule)   errs.schedule   = "Please select a preferred schedule.";
+    if (!data.county)              errs.county        = "Please select your county.";
+    if (!data.city.trim())         errs.city          = "City is required.";
+    if (!data.availableDays.length) errs.availableDays = "Please select at least one available day.";
   }
   return errs;
 }
@@ -389,14 +374,12 @@ export default function CaregiverInterviewPage() {
     setApiError("");
     try {
       const payload = {
-        fullName:    `${data.firstName.trim()} ${data.lastName.trim()}`,
-        phoneNumber: data.phoneNumber.trim(),
-        email:       data.email.trim(),
-        county:      data.county,
-        city:        data.city.trim(),
-        experience:  data.experience,
-        schedule:    data.schedule,
-        message:     data.message.trim(),
+        fullName:      `${data.firstName.trim()} ${data.lastName.trim()}`,
+        phoneNumber:   data.phoneNumber.trim(),
+        email:         data.email.trim(),
+        county:        data.county,
+        city:          data.city.trim(),
+        availableDays: data.availableDays,
       };
       const res = await fetch(API.caregiverApplications, {
         method:  "POST",
@@ -421,7 +404,7 @@ export default function CaregiverInterviewPage() {
 
   const stepTitles = [
     "Your Contact Information",
-    "Your Experience & Availability",
+    "Your Location & Availability",
   ];
 
   return (
