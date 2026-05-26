@@ -1,6 +1,7 @@
 package com.helenshomecare.service;
 
 import com.helenshomecare.entity.Assessment;
+import com.helenshomecare.entity.CaregiverApplication;
 import com.helenshomecare.enums.TypeOfCare;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -308,6 +309,150 @@ public class EmailService {
         );
 
         return buildHtmlEmail("New Lead Submitted", "Action Required", details);
+    }
+
+    // ─── Caregiver Application Emails ────────────────────────────────────────
+
+    @Async
+    public void sendCaregiverApplicationEmails(CaregiverApplication application) {
+        sendCaregiverConfirmation(application);
+        sendCaregiverAdminNotification(application);
+    }
+
+    private void sendCaregiverConfirmation(CaregiverApplication application) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            helper.setFrom(fromEmail, "Helen's Home Care");
+            helper.setTo(application.getEmail());
+            helper.setSubject("Application Received - Helen's Home Care");
+
+            String days = application.getAvailableDays() != null
+                    ? String.join(", ", application.getAvailableDays())
+                    : "Not specified";
+
+            String bodyContent = """
+                    <p style="color:#3a3a3a;line-height:1.7;margin:0 0 16px;">
+                        Dear <strong style="color:#2C6E8A;">%s</strong>,
+                    </p>
+                    <p style="color:#3a3a3a;line-height:1.7;margin:0 0 16px;">
+                        We have received your caregiver application and truly appreciate
+                        your interest in joining the Helen's Home Care family.
+                    </p>
+                    <div style="background:#F5EDD6;border-left:4px solid #D4A843;
+                                padding:16px 20px;margin:24px 0;">
+                        %s
+                        <span style="color:#2C6E8A;font-weight:bold;">
+                            A member of our recruitment team will call you within one business day at
+                            <span style="color:#D4A843;">%s</span> to schedule your interview.
+                        </span>
+                    </div>
+                    <p style="color:#3a3a3a;line-height:1.7;margin:0 0 16px;">
+                        <strong>Your availability:</strong> %s
+                    </p>
+                    <p style="color:#3a3a3a;line-height:1.7;margin:0;">
+                        We look forward to speaking with you soon.
+                    </p>
+                    """.formatted(application.getFullName(), ICON_CHECK, application.getPhoneNumber(), days);
+
+            helper.setText(buildHtmlEmail("Application Received", "Thank you for applying!", bodyContent), true);
+            mailSender.send(message);
+            log.info("Caregiver confirmation email sent to {}", application.getEmail());
+        } catch (Exception e) {
+            log.error("Failed to send caregiver confirmation email to {}: {}", application.getEmail(), e.getMessage());
+        }
+    }
+
+    private void sendCaregiverAdminNotification(CaregiverApplication application) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            helper.setFrom(fromEmail, "Helen's Home Care System");
+            helper.setTo(adminEmail);
+            helper.setSubject("New Caregiver Application: " + application.getFullName());
+
+            String days = application.getAvailableDays() != null
+                    ? String.join(", ", application.getAvailableDays())
+                    : "Not specified";
+
+            String callButton = """
+                    <a href="tel:%s"
+                       style="display:inline-block;padding:12px 22px;background:#2C6E8A;color:#ffffff;
+                              border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;">
+                       Call %s
+                    </a>
+                    """.formatted(application.getPhoneNumber(), application.getFullName());
+
+            String emailButton = """
+                    <a href="mailto:%s"
+                       style="display:inline-block;padding:12px 22px;background:#4A9BB5;color:#ffffff;
+                              border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;
+                              margin-left:12px;">
+                       Email %s
+                    </a>
+                    """.formatted(application.getEmail(), application.getFullName());
+
+            String details = """
+                    <table style="width:100%%;border-collapse:collapse;margin-bottom:28px;">
+                      <tr>
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;width:38%%;">
+                          %s<span style="color:#888888;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;">Name</span>
+                        </td>
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;color:#2C6E8A;font-weight:bold;">%s</td>
+                      </tr>
+                      <tr style="background:#F8F6F1;">
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;">
+                          %s<span style="color:#888888;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;">Phone</span>
+                        </td>
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;color:#3a3a3a;">%s</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;">
+                          %s<span style="color:#888888;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;">Email</span>
+                        </td>
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;color:#3a3a3a;">%s</td>
+                      </tr>
+                      <tr style="background:#F8F6F1;">
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;">
+                          %s<span style="color:#888888;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;">Location</span>
+                        </td>
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;color:#3a3a3a;">%s, %s</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;">
+                          %s<span style="color:#888888;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;">Available Days</span>
+                        </td>
+                        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d0;">
+                          <span style="background:#F5EDD6;color:#a07828;font-weight:bold;font-size:12px;
+                                       padding:3px 10px;border-radius:12px;">%s</span>
+                        </td>
+                      </tr>
+                      <tr style="background:#F8F6F1;">
+                        <td style="padding:10px 14px;">
+                          %s<span style="color:#888888;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;">Submitted</span>
+                        </td>
+                        <td style="padding:10px 14px;color:#888888;font-size:13px;">%s</td>
+                      </tr>
+                    </table>
+                    <div>%s %s</div>
+                    """.formatted(
+                    ICON_USER,    application.getFullName(),
+                    ICON_PHONE,   application.getPhoneNumber(),
+                    ICON_MAIL,    application.getEmail(),
+                    ICON_MAP_PIN, application.getCity(), application.getCounty(),
+                    ICON_CLOCK,   days,
+                    ICON_CLOCK,   application.getSubmittedAt(),
+                    callButton,   emailButton
+            );
+
+            helper.setText(buildHtmlEmail("New Caregiver Application", "Action Required", details), true);
+            mailSender.send(message);
+            log.info("Admin notified of caregiver application id={}", application.getId());
+        } catch (Exception e) {
+            log.error("Failed to send caregiver admin notification: {}", e.getMessage());
+        }
     }
 
     // ─── HTML Template ────────────────────────────────────────────────────────

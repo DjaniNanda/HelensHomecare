@@ -4,13 +4,15 @@ import { useAuth } from "../../context/AuthContext";
 import AdminAssessments from "./AdminAssessments";
 import AdminClients     from "./AdminClients";
 import AdminEmployees   from "./AdminEmployees";
-import { ClipboardIcon, UsersIcon, BriefcaseIcon } from "../icons";
+import AdminCaregiverApplications from "./AdminCaregiverApplications";
+import { ClipboardIcon, UsersIcon, BriefcaseIcon, HeartIcon } from "../icons";
 import "../../componentscss/AdminDashboard.css";
 
 const NAV = [
-  { id: "assessments", label: "Assessments", Icon: ClipboardIcon },
-  { id: "clients",     label: "Clients",     Icon: UsersIcon },
-  { id: "employees",   label: "Employees",   Icon: BriefcaseIcon },
+  { id: "assessments",           label: "Assessments",    Icon: ClipboardIcon },
+  { id: "clients",               label: "Clients",        Icon: UsersIcon },
+  { id: "employees",             label: "Employees",      Icon: BriefcaseIcon },
+  { id: "caregiver-applications",label: "Applications",   Icon: HeartIcon },
 ];
 
 export default function AdminDashboard() {
@@ -87,6 +89,7 @@ export default function AdminDashboard() {
           {tab === "assessments" && <AdminAssessments />}
           {tab === "clients"     && <AdminClients     />}
           {tab === "employees"   && <AdminEmployees   />}
+          {tab === "caregiver-applications" && <AdminCaregiverApplications />}
         </div>
       </main>
     </div>

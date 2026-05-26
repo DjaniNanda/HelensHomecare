@@ -25,6 +25,11 @@ export const API = {
   adminClient:       (id) => `${BASE_URL}/api/admin/clients/${id}`,
   adminClientArchive:(id) => `${BASE_URL}/api/admin/clients/${id}/archive`,
 
+  // Admin — Caregiver Applications
+  adminCaregiverApplications: `${BASE_URL}/api/admin/caregiver-applications`,
+  adminCaregiverApplication:  (id) => `${BASE_URL}/api/admin/caregiver-applications/${id}`,
+  adminCaregiverApplicationStatus: (id) => `${BASE_URL}/api/admin/caregiver-applications/${id}/status`,
+
   // Admin — Employees
   adminEmployees:    `${BASE_URL}/api/admin/employees`,
   adminEmployee:     (id) => `${BASE_URL}/api/admin/employees/${id}`,
