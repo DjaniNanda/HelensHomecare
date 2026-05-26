@@ -450,7 +450,7 @@ export default function CaregiverInterviewPage() {
           <div className="ci-hero-inner">
             <span className="ci-hero-eyebrow">Join Our Team</span>
             <h1 className="ci-hero-title">
-              Complete Your<br /><em>Application</em>
+              Complete Your<br /><em>Your Application</em>
             </h1>
             <p className="ci-hero-sub">
               We're always looking for compassionate caregivers to join the Helen's Home Care family.
