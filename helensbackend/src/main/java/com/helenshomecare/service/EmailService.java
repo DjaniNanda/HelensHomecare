@@ -131,44 +131,13 @@ public class EmailService {
     }
 
     private String getSubmitterSubject(TypeOfCare typeOfCare) {
-        if (typeOfCare == TypeOfCare.LOOKING_FOR_WORK) {
-            return "Application Received - Helen's Home Care";
-        }
         return "Assessment Request Received - Helen's Home Care";
     }
 
     private String buildSubmitterBody(Assessment assessment) {
-        String heading;
-        String intro;
-        String bodyContent;
-
-        if (assessment.getTypeOfCare() == TypeOfCare.LOOKING_FOR_WORK) {
-            heading = "Application Received";
-            intro   = "Thank you for your interest in joining our team!";
-            bodyContent = """
-                    <p style="color:#3a3a3a;line-height:1.7;margin:0 0 16px;">
-                        Dear <strong style="color:#2C6E8A;">%s</strong>,
-                    </p>
-                    <p style="color:#3a3a3a;line-height:1.7;margin:0 0 16px;">
-                        We have received your application and truly appreciate your interest
-                        in working with Helen's Home Care.
-                    </p>
-                    <div style="background:#F5EDD6;border-left:4px solid #D4A843;
-                                padding:16px 20px;margin:24px 0;">
-                        %s
-                        <span style="color:#2C6E8A;font-weight:bold;">
-                            A member of our team will call you within 24 hours at
-                            <span style="color:#D4A843;">%s</span> to discuss next steps.
-                        </span>
-                    </div>
-                    <p style="color:#3a3a3a;line-height:1.7;margin:0;">
-                        We look forward to speaking with you soon.
-                    </p>
-                    """.formatted(assessment.getFullName(), ICON_CHECK, assessment.getPhoneNumber());
-        } else {
-            heading = "Assessment Request Received";
-            intro   = "Thank you for reaching out to Helen's Home Care!";
-            bodyContent = """
+        String heading     = "Assessment Request Received";
+        String intro       = "Thank you for reaching out to Helen's Home Care!";
+        String bodyContent = """
                     <p style="color:#3a3a3a;line-height:1.7;margin:0 0 16px;">
                         Dear <strong style="color:#2C6E8A;">%s</strong>,
                     </p>
@@ -188,7 +157,6 @@ public class EmailService {
                         We look forward to speaking with you soon.
                     </p>
                     """.formatted(assessment.getFullName(), ICON_CHECK, assessment.getPhoneNumber());
-        }
 
         return buildHtmlEmail(heading, intro, bodyContent);
     }
@@ -537,9 +505,8 @@ public class EmailService {
 
     private String formatTypeOfCare(TypeOfCare typeOfCare) {
         return switch (typeOfCare) {
-            case HOME_CARE        -> "Home Care";
-            case LOOKING_FOR_WORK -> "Looking for Work";
-            case UNSURE           -> "Unsure";
+            case HOME_CARE -> "Home Care";
+            case UNSURE    -> "Unsure";
         };
     }
 }
