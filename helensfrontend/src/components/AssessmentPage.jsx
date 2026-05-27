@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import "../componentscss/AssessmentPage.css";
-import { CheckIcon, HomeIcon, BriefcaseIcon, MessageIcon, LockIcon, PhoneIcon, WarningIcon } from "./icons";
+import { CheckIcon, HomeIcon, MessageIcon, LockIcon, PhoneIcon, WarningIcon } from "./icons";
 import { API } from "../api/config";
 import SEO from './SEO.jsx';
 
@@ -33,12 +32,6 @@ const CARE_OPTIONS = [
     label: "Home Care",
     desc: "I am looking for professional care services at home.",
     Icon: HomeIcon,
-  },
-  {
-    value: "LOOKING_FOR_WORK",
-    label: "Looking for Work",
-    desc: "I am a caregiver looking for employment opportunities.",
-    Icon: BriefcaseIcon,
   },
   {
     value: "UNSURE",
@@ -336,7 +329,6 @@ function validate(step, data) {
    MAIN PAGE
 ═══════════════════════════════════════ */
 export default function AssessmentPage() {
-  const navigate = useNavigate();
   const [step,      setStep]      = useState(1);
   const [data,      setData]      = useState(INITIAL);
   const [errors,    setErrors]    = useState({});
@@ -365,20 +357,8 @@ export default function AssessmentPage() {
     setErrors({});
 
     if (step < STEPS.length) {
-      // If the user is going to step 2 and has already picked LOOKING_FOR_WORK,
-      // or is on step 2 and picks LOOKING_FOR_WORK, redirect them to the caregiver form.
-      if (data.typeOfCare === "LOOKING_FOR_WORK") {
-        navigate("/caregiver-interview");
-        return;
-      }
       setStep(s => s + 1);
       scrollToCard();
-      return;
-    }
-
-    // Final submit — also guard if somehow they reach submit with LOOKING_FOR_WORK
-    if (data.typeOfCare === "LOOKING_FOR_WORK") {
-      navigate("/caregiver-interview");
       return;
     }
     setLoading(true);

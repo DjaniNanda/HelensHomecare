@@ -2,6 +2,7 @@ package com.helenshomecare.entity;
 
 import com.helenshomecare.enums.County;
 import com.helenshomecare.enums.EmployeeStatus;
+import com.helenshomecare.enums.Shift;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,7 +43,14 @@ public class Employee {
     @Column(name = "county")
     private List<County> assignedZones;
 
-    private String availability;
+    // Days available to work
+    @ElementCollection
+    @CollectionTable(name = "employee_available_days", joinColumns = @JoinColumn(name = "employee_id"))
+    @Column(name = "day")
+    private List<String> availableDays;
+
+    @Enumerated(EnumType.STRING)
+    private Shift shift;
 
     private String notes;
 
@@ -50,7 +58,12 @@ public class Employee {
     @Builder.Default
     private EmployeeStatus status = EmployeeStatus.ACTIVE;
 
-    // Link to original "Looking for Work" assessment
+    // Link to original caregiver application (if hired via application flow)
+    @OneToOne
+    @JoinColumn(name = "caregiver_application_id")
+    private CaregiverApplication caregiverApplication;
+
+    // Link to original assessment (legacy)
     @OneToOne
     @JoinColumn(name = "assessment_id")
     private Assessment assessment;

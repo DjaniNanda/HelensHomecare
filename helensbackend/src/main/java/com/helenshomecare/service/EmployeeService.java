@@ -2,10 +2,12 @@ package com.helenshomecare.service;
 
 import com.helenshomecare.dto.EmployeeRequest;
 import com.helenshomecare.entity.Assessment;
+import com.helenshomecare.entity.CaregiverApplication;
 import com.helenshomecare.entity.Employee;
 import com.helenshomecare.enums.County;
 import com.helenshomecare.enums.EmployeeStatus;
 import com.helenshomecare.repository.AssessmentRepository;
+import com.helenshomecare.repository.CaregiverApplicationRepository;
 import com.helenshomecare.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final AssessmentRepository assessmentRepository;
+    private final CaregiverApplicationRepository caregiverApplicationRepository;
 
     public List<Employee> getAll() {
         return employeeRepository.findAllByOrderByCreatedAtDesc();
@@ -43,6 +46,7 @@ public class EmployeeService {
     @Transactional
     public Employee create(EmployeeRequest request) {
         Assessment assessment = resolveAssessment(request.getAssessmentId());
+        CaregiverApplication application = resolveCaregiverApplication(request.getCaregiverApplicationId());
 
         Employee employee = Employee.builder()
                 .fullName(request.getFullName())
@@ -50,10 +54,12 @@ public class EmployeeService {
                 .email(request.getEmail())
                 .city(request.getCity())
                 .assignedZones(request.getAssignedZones())
-                .availability(request.getAvailability())
+                .availableDays(request.getAvailableDays())
+                .shift(request.getShift())
                 .notes(request.getNotes())
                 .status(request.getStatus() != null ? request.getStatus() : EmployeeStatus.ACTIVE)
                 .assessment(assessment)
+                .caregiverApplication(application)
                 .build();
 
         Employee saved = employeeRepository.save(employee);
@@ -65,16 +71,19 @@ public class EmployeeService {
     public Employee update(Long id, EmployeeRequest request) {
         Employee employee = getById(id);
         Assessment assessment = resolveAssessment(request.getAssessmentId());
+        CaregiverApplication application = resolveCaregiverApplication(request.getCaregiverApplicationId());
 
         employee.setFullName(request.getFullName());
         employee.setPhoneNumber(request.getPhoneNumber());
         employee.setEmail(request.getEmail());
         employee.setCity(request.getCity());
         employee.setAssignedZones(request.getAssignedZones());
-        employee.setAvailability(request.getAvailability());
+        employee.setAvailableDays(request.getAvailableDays());
+        employee.setShift(request.getShift());
         employee.setNotes(request.getNotes());
         if (request.getStatus() != null) employee.setStatus(request.getStatus());
         if (assessment != null) employee.setAssessment(assessment);
+        if (application != null) employee.setCaregiverApplication(application);
 
         return employeeRepository.save(employee);
     }
@@ -98,5 +107,11 @@ public class EmployeeService {
         if (assessmentId == null) return null;
         return assessmentRepository.findById(assessmentId)
                 .orElseThrow(() -> new EntityNotFoundException("Assessment not found: " + assessmentId));
+    }
+
+    private CaregiverApplication resolveCaregiverApplication(Long appId) {
+        if (appId == null) return null;
+        return caregiverApplicationRepository.findById(appId)
+                .orElseThrow(() -> new EntityNotFoundException("Caregiver application not found: " + appId));
     }
 }

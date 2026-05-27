@@ -2,6 +2,7 @@ package com.helenshomecare.entity;
 
 import com.helenshomecare.enums.County;
 import com.helenshomecare.enums.CaregiverApplicationStatus;
+import com.helenshomecare.enums.Shift;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,6 +45,9 @@ public class CaregiverApplication {
             joinColumns = @JoinColumn(name = "application_id"))
     @Column(name = "day")
     private List<String> availableDays;
+
+    @Enumerated(EnumType.STRING)
+    private Shift shift;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default

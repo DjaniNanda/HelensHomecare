@@ -36,14 +36,21 @@ const DAYS_OF_WEEK = [
   { value: "SUN", label: "Sun" },
 ];
 
+const SHIFT_OPTIONS = [
+  { value: "DAY",   label: "Day",   desc: "Morning & afternoon shifts" },
+  { value: "NIGHT", label: "Night", desc: "Evening & overnight shifts" },
+  { value: "BOTH",  label: "Both",  desc: "Open to any shift" },
+];
+
 const INITIAL = {
-  firstName:        "",
-  lastName:         "",
-  email:            "",
-  phoneNumber:      "",
-  county:           "",
-  city:             "",
-  availableDays:    [],
+  firstName:     "",
+  lastName:      "",
+  email:         "",
+  phoneNumber:   "",
+  county:        "",
+  city:          "",
+  availableDays: [],
+  shift:         "",
 };
 
 /* ═══════════════════════════════════════
@@ -228,6 +235,32 @@ function Step2({ data, set, errors }) {
         {errors.availableDays && <span className="ci-err-msg">{errors.availableDays}</span>}
       </div>
 
+      {/* Shift Preference */}
+      <div className="ci-field">
+        <label>Shift Preference <span className="ci-req">*</span></label>
+        <div className="ci-shift-options">
+          {SHIFT_OPTIONS.map(opt => {
+            const selected = data.shift === opt.value;
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                className={`ci-shift-card${selected ? " ci-shift-card--active" : ""}`}
+                onClick={() => set("shift", opt.value)}
+                aria-pressed={selected}
+              >
+                <strong className="ci-shift-label">{opt.label}</strong>
+                <span className="ci-shift-desc">{opt.desc}</span>
+                {selected && (
+                  <span className="ci-shift-check"><CheckIcon size={12} /></span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+        {errors.shift && <span className="ci-err-msg">{errors.shift}</span>}
+      </div>
+
       {/* Summary */}
       <div className="ci-summary">
         <h4 className="ci-summary-title">Your Summary</h4>
@@ -328,6 +361,7 @@ function validate(step, data) {
     if (!data.county)              errs.county        = "Please select your county.";
     if (!data.city.trim())         errs.city          = "City is required.";
     if (!data.availableDays.length) errs.availableDays = "Please select at least one available day.";
+    if (!data.shift)               errs.shift          = "Please select a shift preference.";
   }
   return errs;
 }
@@ -380,6 +414,7 @@ export default function CaregiverInterviewPage() {
         county:        data.county,
         city:          data.city.trim(),
         availableDays: data.availableDays,
+        shift:         data.shift,
       };
       const res = await fetch(API.caregiverApplications, {
         method:  "POST",

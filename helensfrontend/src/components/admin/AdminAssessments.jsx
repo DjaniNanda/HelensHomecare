@@ -6,16 +6,15 @@ const STATUS_LABELS = { PENDING: "Pending", CONTACTED: "Contacted", CLOSED: "Clo
 const STATUS_COLORS = { PENDING: "badge--gold", CONTACTED: "badge--blue", CLOSED: "badge--muted" };
 
 const CARE_LABELS = {
-  HOME_CARE:        "Home Care",
-  LOOKING_FOR_WORK: "Looking for Work",
-  UNSURE:           "Unsure",
+  HOME_CARE: "Home Care",
+  UNSURE:    "Unsure",
 };
 
 const COUNTIES   = ["GWINNETT","DEKALB","COBB","FULTON","CLAYTON","HENRY","MORROW","WALTON","ROCKDALE","FORSYTH"];
 const STATUSES   = ["PENDING","CONTACTED","CLOSED"];
-const CARE_TYPES = ["HOME_CARE","LOOKING_FOR_WORK","UNSURE"];
+const CARE_TYPES = ["HOME_CARE","UNSURE"];
 
-function toTitle(str) { return str.charAt(0) + str.slice(1).toLowerCase(); }
+function toTitle(str) { return str ? str.charAt(0) + str.slice(1).toLowerCase() : ""; }
 
 export default function AdminAssessments() {
   const [rows,    setRows]    = useState([]);
@@ -74,26 +73,21 @@ export default function AdminAssessments() {
   return (
     <div className="ap-panel">
 
-      {/* ── Filters ── */}
       <div className="ap-filters">
         <span className="ap-filter-label">Filter</span>
         <div className="ap-filter-divider" />
-
         <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="ap-filter-select">
           <option value="">All Statuses</option>
           {STATUSES.map(s => <option key={s} value={s}>{STATUS_LABELS[s]}</option>)}
         </select>
-
         <select value={filterCounty} onChange={e => setFilterCounty(e.target.value)} className="ap-filter-select">
           <option value="">All Counties</option>
           {COUNTIES.map(c => <option key={c} value={c}>{toTitle(c)}</option>)}
         </select>
-
         <select value={filterCareType} onChange={e => setFilterCareType(e.target.value)} className="ap-filter-select">
           <option value="">All Types</option>
           {CARE_TYPES.map(t => <option key={t} value={t}>{CARE_LABELS[t]}</option>)}
         </select>
-
         <div className="ap-filter-divider" />
         <button className="ap-filter-reset" onClick={resetFilters}>Reset</button>
       </div>
@@ -104,18 +98,12 @@ export default function AdminAssessments() {
       {!loading && !error && (
         <>
           <div className="ap-count">{rows.length} assessment{rows.length !== 1 ? "s" : ""}</div>
-
           <div className="ap-table-wrap">
             <table className="ap-table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Contact</th>
-                  <th>Location</th>
-                  <th>Type of Care</th>
-                  <th>Status</th>
-                  <th>Submitted</th>
-                  <th>Actions</th>
+                  <th>Name</th><th>Contact</th><th>Location</th>
+                  <th>Type of Care</th><th>Status</th><th>Submitted</th><th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -124,33 +112,21 @@ export default function AdminAssessments() {
                 )}
                 {rows.map(row => (
                   <tr key={row.id}>
-
-                    {/* Name */}
                     <td data-label="Name" className="ap-td-name">{row.fullName}</td>
-
-                    {/* One-click contact actions */}
                     <td data-label="Contact">
                       <div className="ap-contact-cell">
                         <a href={`tel:${row.phoneNumber}`} className="ap-action-call">
-                          <PhoneIcon size={13} />
-                          {row.phoneNumber}
+                          <PhoneIcon size={13} />{row.phoneNumber}
                         </a>
                         <a href={`mailto:${row.email}`} className="ap-action-email">
-                          <MailIcon size={13} />
-                          {row.email}
+                          <MailIcon size={13} />{row.email}
                         </a>
                       </div>
                     </td>
-
-                    {/* Location */}
                     <td data-label="Location">{row.city}, {toTitle(row.county ?? "")}</td>
-
-                    {/* Type */}
                     <td data-label="Type">
                       <span className="badge badge--navy">{CARE_LABELS[row.typeOfCare]}</span>
                     </td>
-
-                    {/* Status (inline edit) */}
                     <td data-label="Status">
                       {editingId === row.id ? (
                         <div className="ap-inline-edit">
@@ -183,13 +159,9 @@ export default function AdminAssessments() {
                         </button>
                       )}
                     </td>
-
-                    {/* Date */}
                     <td data-label="Submitted" className="ap-td-date">
                       {row.submittedAt ? new Date(row.submittedAt).toLocaleDateString() : "—"}
                     </td>
-
-                    {/* Delete */}
                     <td data-label="">
                       <div className="ap-td-actions">
                         <button className="ap-btn-del" onClick={() => deleteRow(row.id)} title="Delete">

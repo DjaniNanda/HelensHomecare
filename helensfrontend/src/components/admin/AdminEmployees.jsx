@@ -8,9 +8,17 @@ const COUNTIES = ["GWINNETT","DEKALB","COBB","FULTON","CLAYTON","HENRY","MORROW"
 const STATUSES = ["ACTIVE","ON_LEAVE","TERMINATED"];
 const DAYS_OF_WEEK = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
 
+const SHIFT_OPTIONS = [
+  { value: "DAY",   label: "Day"   },
+  { value: "NIGHT", label: "Night" },
+  { value: "BOTH",  label: "Both"  },
+];
+const SHIFT_LABELS = { DAY: "Day", NIGHT: "Night", BOTH: "Both" };
+const SHIFT_COLORS = { DAY: "badge--blue", NIGHT: "badge--navy", BOTH: "badge--green" };
+
 const EMPTY_FORM = {
   fullName: "", phoneNumber: "", email: "", city: "",
-  assignedZones: [], availableDays: [], notes: "", status: "ACTIVE",
+  assignedZones: [], availableDays: [], shift: "", notes: "", status: "ACTIVE",
 };
 
 function toTitle(str) { return str ? str.charAt(0) + str.slice(1).toLowerCase() : ""; }
@@ -56,12 +64,9 @@ export default function AdminEmployees() {
 
   const openCreate = () => { setForm(EMPTY_FORM); setFormErr({}); setEditing(null); setModal("create"); };
   const openEdit   = (row) => {
-    setForm({
-      fullName: row.fullName, phoneNumber: row.phoneNumber, email: row.email,
+    setForm({ fullName: row.fullName, phoneNumber: row.phoneNumber, email: row.email,
       city: row.city, assignedZones: row.assignedZones ?? [],
-      availableDays: parseAvailableDays(row.availability),
-      notes: row.notes ?? "", status: row.status,
-    });
+      availability: row.availability ?? "", notes: row.notes ?? "", status: row.status });
     setFormErr({}); setEditing(row); setModal("edit");
   };
 
@@ -70,11 +75,6 @@ export default function AdminEmployees() {
     ...p, assignedZones: p.assignedZones.includes(zone)
       ? p.assignedZones.filter(z => z !== zone)
       : [...p.assignedZones, zone],
-  }));
-  const toggleDay = (day) => setForm(p => ({
-    ...p, availableDays: p.availableDays.includes(day)
-      ? p.availableDays.filter(d => d !== day)
-      : [...p.availableDays, day],
   }));
 
   const validate = () => {
@@ -93,17 +93,8 @@ export default function AdminEmployees() {
     try {
       const method = modal === "create" ? "POST" : "PUT";
       const url    = modal === "create" ? API.adminEmployees : API.adminEmployee(editing.id);
-      // Send availableDays as comma-joined string into the `availability` field
-      const payload = {
-        ...form,
-        availability: form.availableDays.length > 0 ? form.availableDays.join(",") : "",
-      };
-      delete payload.availableDays;
-      const res = await fetch(url, {
-        method, credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(url, { method, credentials: "include",
+        headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
       if (!res.ok) throw new Error("Save failed.");
       setModal(null); load();
     } catch (e) { alert(e.message); }
@@ -152,56 +143,48 @@ export default function AdminEmployees() {
           <div className="ap-table-wrap">
             <table className="ap-table">
               <thead>
-                <tr><th>Name</th><th>Contact</th><th>City</th><th>Zones</th><th>Available Days</th><th>Status</th><th>Actions</th></tr>
+                <tr><th>Name</th><th>Contact</th><th>City</th><th>Zones</th><th>Availability</th><th>Status</th><th>Actions</th></tr>
               </thead>
               <tbody>
                 {rows.length === 0 && <tr><td colSpan={7} className="ap-empty">No employees found.</td></tr>}
-                {rows.map(row => {
-                  const days = parseAvailableDays(row.availability);
-                  return (
-                    <tr key={row.id}>
-                      <td data-label="Name" className="ap-td-name">{row.fullName}</td>
-                      <td data-label="Contact">
-                        <div className="ap-contact-cell">
-                          <a href={`tel:${row.phoneNumber}`} className="ap-action-call">
-                            <PhoneIcon size={13} />{row.phoneNumber}
-                          </a>
-                          <a href={`mailto:${row.email}`} className="ap-action-email">
-                            <MailIcon size={13} />{row.email}
-                          </a>
-                        </div>
-                      </td>
-                      <td data-label="City">{row.city}</td>
-                      <td data-label="Zones">
-                        <div className="ap-zones">
-                          {(row.assignedZones ?? []).slice(0, 3).map(z => (
-                            <span key={z} className="badge badge--sm badge--navy">{toTitle(z)}</span>
-                          ))}
-                          {(row.assignedZones ?? []).length > 3 && (
-                            <span className="badge badge--sm badge--muted">+{row.assignedZones.length - 3}</span>
-                          )}
-                          {(row.assignedZones ?? []).length === 0 && <em className="ap-none">None</em>}
-                        </div>
-                      </td>
-                      <td data-label="Available Days">
-                        <div className="ap-zones">
-                          {days.length > 0
-                            ? days.map(d => <span key={d} className="badge badge--sm badge--gold">{d}</span>)
-                            : <em className="ap-none">—</em>
-                          }
-                        </div>
-                      </td>
-                      <td data-label="Status"><span className={`badge ${STATUS_COLORS[row.status]}`}>{STATUS_LABELS[row.status]}</span></td>
-                      <td data-label="">
-                        <div className="ap-td-actions">
-                          <button className="ap-btn-edit"    onClick={() => openEdit(row)} title="Edit"><EditIcon size={15} /></button>
-                          <button className="ap-btn-archive" onClick={() => archive(row.id)} title="Archive"><ArchiveIcon size={15} /></button>
-                          <button className="ap-btn-del"     onClick={() => del(row.id)} title="Delete"><TrashIcon size={15} /></button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {rows.map(row => (
+                  <tr key={row.id}>
+                    <td data-label="Name" className="ap-td-name">{row.fullName}</td>
+                    <td data-label="Contact">
+                      <div className="ap-contact-cell">
+                        <a href={`tel:${row.phoneNumber}`} className="ap-action-call">
+                          <PhoneIcon size={13} />
+                          {row.phoneNumber}
+                        </a>
+                        <a href={`mailto:${row.email}`} className="ap-action-email">
+                          <MailIcon size={13} />
+                          {row.email}
+                        </a>
+                      </div>
+                    </td>
+                    <td data-label="City">{row.city}</td>
+                    <td data-label="Zones">
+                      <div className="ap-zones">
+                        {(row.assignedZones ?? []).slice(0, 3).map(z => (
+                          <span key={z} className="badge badge--sm badge--navy">{toTitle(z)}</span>
+                        ))}
+                        {(row.assignedZones ?? []).length > 3 && (
+                          <span className="badge badge--sm badge--muted">+{row.assignedZones.length - 3}</span>
+                        )}
+                        {(row.assignedZones ?? []).length === 0 && <em className="ap-none">None</em>}
+                      </div>
+                    </td>
+                    <td data-label="Availability">{row.availability || <em className="ap-none">—</em>}</td>
+                    <td data-label="Status"><span className={`badge ${STATUS_COLORS[row.status]}`}>{STATUS_LABELS[row.status]}</span></td>
+                    <td data-label="">
+                      <div className="ap-td-actions">
+                        <button className="ap-btn-edit"    onClick={() => openEdit(row)} title="Edit"><EditIcon size={15} /></button>
+                        <button className="ap-btn-archive" onClick={() => archive(row.id)} title="Archive"><ArchiveIcon size={15} /></button>
+                        <button className="ap-btn-del"     onClick={() => del(row.id)} title="Delete"><TrashIcon size={15} /></button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -244,14 +227,14 @@ export default function AdminEmployees() {
                   ))}
                 </div>
               </Field>
-              <Field label="Available Days">
+              <Field label="Shift Preference">
                 <div className="ap-zone-grid ap-days-grid">
-                  {DAYS_OF_WEEK.map(d => (
-                    <button key={d} type="button"
-                      className={`ap-zone-chip${form.availableDays.includes(d) ? " ap-zone-chip--active" : ""}`}
-                      onClick={() => toggleDay(d)}
+                  {SHIFT_OPTIONS.map(s => (
+                    <button key={s.value} type="button"
+                      className={`ap-zone-chip${form.shift === s.value ? " ap-zone-chip--active" : ""}`}
+                      onClick={() => setF("shift", s.value)}
                     >
-                      {d}
+                      {s.label}
                     </button>
                   ))}
                 </div>
@@ -260,6 +243,9 @@ export default function AdminEmployees() {
                 <select value={form.status} onChange={e => setF("status", e.target.value)} className="ap-minput ap-mselect">
                   {STATUSES.map(s => <option key={s} value={s}>{STATUS_LABELS[s]}</option>)}
                 </select>
+              </Field>
+              <Field label="Availability">
+                <input value={form.availability} onChange={e => setF("availability", e.target.value)} className="ap-minput" placeholder="e.g. Mon–Fri 8am–5pm" />
               </Field>
               <Field label="Notes">
                 <textarea rows={3} value={form.notes} onChange={e => setF("notes", e.target.value)} className="ap-minput ap-mtextarea" placeholder="Additional notes…" />

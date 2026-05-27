@@ -17,6 +17,8 @@ const STATUS_COLORS = {
 
 const COUNTIES = ["GWINNETT","DEKALB","COBB","FULTON","CLAYTON","HENRY","MORROW","WALTON","ROCKDALE","FORSYTH"];
 const STATUSES = ["PENDING","CONTACTED","HIRED","REJECTED"];
+const SHIFT_LABELS = { DAY: "Day", NIGHT: "Night", BOTH: "Both" };
+const SHIFT_COLORS = { DAY: "badge--blue", NIGHT: "badge--navy", BOTH: "badge--green" };
 
 function toTitle(str) {
   if (!str) return "";
@@ -126,6 +128,7 @@ export default function AdminCaregiverApplications() {
                   <th>Contact</th>
                   <th>Location</th>
                   <th>Available Days</th>
+                  <th>Shift</th>
                   <th>Status</th>
                   <th>Submitted</th>
                   <th>Actions</th>
@@ -150,6 +153,11 @@ export default function AdminCaregiverApplications() {
                     </td>
                     <td data-label="Location">{row.city}, {toTitle(row.county)}</td>
                     <td data-label="Available Days"><DayBadges days={row.availableDays} /></td>
+                    <td data-label="Shift">
+                      {row.shift
+                        ? <span className={`badge ${SHIFT_COLORS[row.shift]}`}>{SHIFT_LABELS[row.shift]}</span>
+                        : <em className="ap-none">—</em>}
+                    </td>
                     <td data-label="Status">
                       <span className={`badge ${STATUS_COLORS[row.status]}`}>{STATUS_LABELS[row.status]}</span>
                     </td>
@@ -205,6 +213,12 @@ export default function AdminCaregiverApplications() {
                 <div className="ap-detail-item">
                   <span className="ap-detail-label">Available Days</span>
                   <DayBadges days={detailRow.availableDays} />
+                </div>
+                <div className="ap-detail-item">
+                  <span className="ap-detail-label">Shift</span>
+                  {detailRow.shift
+                    ? <span className={`badge ${SHIFT_COLORS[detailRow.shift]}`}>{SHIFT_LABELS[detailRow.shift]}</span>
+                    : <em className="ap-none">—</em>}
                 </div>
                 <div className="ap-detail-item">
                   <span className="ap-detail-label">Submitted</span>

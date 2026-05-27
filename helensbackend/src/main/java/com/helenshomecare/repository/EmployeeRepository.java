@@ -1,6 +1,7 @@
 package com.helenshomecare.repository;
 
 import com.helenshomecare.entity.Assessment;
+import com.helenshomecare.entity.CaregiverApplication;
 import com.helenshomecare.entity.Employee;
 import com.helenshomecare.enums.County;
 import com.helenshomecare.enums.EmployeeStatus;
@@ -20,4 +21,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAllByOrderByCreatedAtDesc();
 
     Optional<Employee> findByAssessment(Assessment assessment);
+
+    Optional<Employee> findByCaregiverApplication(CaregiverApplication caregiverApplication);
 }

@@ -7,15 +7,14 @@ import { API } from "../api/config";
    DATA  — values match backend enums exactly
 ═══════════════════════════════════════ */
 const CARE_TYPES = [
-  { value: "HOME_CARE",        label: "Senior / Personal / In-Home Care" },
-  { value: "HOME_CARE",        label: "24/7 In-Home Care" },
-  { value: "HOME_CARE",        label: "Companion Care Service" },
-  { value: "HOME_CARE",        label: "Hospital to Home Transition Care" },
-  { value: "HOME_CARE",        label: "Assistance Before & After Surgery" },
-  { value: "HOME_CARE",        label: "Dementia Care Services" },
-  { value: "HOME_CARE",        label: "Alzheimer's Care Services" },
-  { value: "UNSURE",           label: "Unsure / Explore Options" },
-  { value: "LOOKING_FOR_WORK", label: "Looking for Work" },
+  { value: "HOME_CARE", label: "Senior / Personal / In-Home Care" },
+  { value: "HOME_CARE", label: "24/7 In-Home Care" },
+  { value: "HOME_CARE", label: "Companion Care Service" },
+  { value: "HOME_CARE", label: "Hospital to Home Transition Care" },
+  { value: "HOME_CARE", label: "Assistance Before & After Surgery" },
+  { value: "HOME_CARE", label: "Dementia Care Services" },
+  { value: "HOME_CARE", label: "Alzheimer's Care Services" },
+  { value: "UNSURE",    label: "Unsure / Explore Options" },
 ];
 
 const SERVICE_LOCATIONS = [

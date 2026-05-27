@@ -2,6 +2,7 @@ package com.helenshomecare.dto;
 
 import com.helenshomecare.enums.County;
 import com.helenshomecare.enums.EmployeeStatus;
+import com.helenshomecare.enums.Shift;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,12 +29,17 @@ public class EmployeeRequest {
     @NotNull(message = "At least one assigned zone is required")
     private List<County> assignedZones;
 
-    private String availability;
+    private List<String> availableDays;
+
+    private Shift shift;
 
     private String notes;
 
     private EmployeeStatus status;
 
-    // Optional: link to original "Looking for Work" assessment
+    // Optional: link to caregiver application
+    private Long caregiverApplicationId;
+
+    // Optional: link to legacy assessment
     private Long assessmentId;
 }
