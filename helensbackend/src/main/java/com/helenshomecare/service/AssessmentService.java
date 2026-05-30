@@ -27,9 +27,6 @@ public class AssessmentService {
     private final ClientRepository clientRepository;
     private final EmailService emailService;
 
-    /**
-     * Public endpoint: submit a new assessment.
-     */
     @Transactional
     public Assessment submit(AssessmentRequest request) {
         Assessment assessment = Assessment.builder()
@@ -39,16 +36,15 @@ public class AssessmentService {
                 .county(request.getCounty())
                 .city(request.getCity())
                 .typeOfCare(request.getTypeOfCare())
+                .serviceType(request.getServiceType())
                 .status(AssessmentStatus.PENDING)
                 .build();
 
         Assessment saved = assessmentRepository.save(assessment);
-        log.info("New assessment submitted: id={}, type={}", saved.getId(), saved.getTypeOfCare());
+        log.info("New assessment submitted: id={}, type={}, service={}", saved.getId(), saved.getTypeOfCare(), saved.getServiceType());
         emailService.sendAssessmentEmails(saved);
         return saved;
     }
-
-    // ─── Admin operations ─────────────────────────────────────────────────────
 
     public List<Assessment> getAll() {
         return assessmentRepository.findAllByOrderBySubmittedAtDesc();
@@ -70,21 +66,22 @@ public class AssessmentService {
     }
 
     /**
-     * Update the status of an assessment.
-     * PENDING → CONTACTED: auto-create a Client (HOME_CARE or UNSURE only).
+     * Update status.
+     * PENDING/CONTACTED → HHC_CLIENT: auto-create a Client record.
+     * CONTACTED alone no longer creates a client.
      */
     @Transactional
     public Assessment updateStatus(Long id, AssessmentStatusUpdate update) {
         Assessment assessment = getById(id);
 
-        boolean isTransitionToContacted =
-                assessment.getStatus() == AssessmentStatus.PENDING
-                        && update.getStatus() == AssessmentStatus.CONTACTED;
+        boolean isTransitionToHhcClient =
+                assessment.getStatus() != AssessmentStatus.HHC_CLIENT
+                        && update.getStatus() == AssessmentStatus.HHC_CLIENT;
 
         assessment.setStatus(update.getStatus());
         Assessment saved = assessmentRepository.save(assessment);
 
-        if (isTransitionToContacted) {
+        if (isTransitionToHhcClient) {
             convertToClient(saved);
         }
 
@@ -98,8 +95,6 @@ public class AssessmentService {
         }
         assessmentRepository.deleteById(id);
     }
-
-    // ─── Private helpers ──────────────────────────────────────────────────────
 
     private void convertToClient(Assessment assessment) {
         if (clientRepository.findByAssessment(assessment).isPresent()) {
@@ -118,7 +113,6 @@ public class AssessmentService {
                 .build();
 
         Client saved = clientRepository.save(client);
-        log.info("Assessment id={} (type={}) auto-converted to Client id={}",
-                assessment.getId(), assessment.getTypeOfCare(), saved.getId());
+        log.info("Assessment id={} marked HHC_CLIENT — auto-created Client id={}", assessment.getId(), saved.getId());
     }
 }

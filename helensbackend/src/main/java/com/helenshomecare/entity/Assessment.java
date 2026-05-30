@@ -2,6 +2,7 @@ package com.helenshomecare.entity;
 
 import com.helenshomecare.enums.AssessmentStatus;
 import com.helenshomecare.enums.County;
+import com.helenshomecare.enums.ServiceType;
 import com.helenshomecare.enums.TypeOfCare;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,10 @@ public class Assessment {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TypeOfCare typeOfCare;
+
+    // Only populated when typeOfCare == HOME_CARE
+    @Enumerated(EnumType.STRING)
+    private ServiceType serviceType;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default

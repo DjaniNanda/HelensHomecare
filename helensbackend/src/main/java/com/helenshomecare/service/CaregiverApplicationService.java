@@ -35,6 +35,7 @@ public class CaregiverApplicationService {
                 .county(request.getCounty())
                 .city(request.getCity())
                 .availableDays(request.getAvailableDays())
+                .role(request.getRole())
                 .shift(request.getShift())
                 .status(CaregiverApplicationStatus.PENDING)
                 .build();

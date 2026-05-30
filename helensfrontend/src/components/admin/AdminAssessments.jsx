@@ -2,16 +2,33 @@ import { useState, useEffect, useCallback } from "react";
 import { API } from "../../api/config";
 import { PhoneIcon, MailIcon, TrashIcon, CheckIcon, XIcon } from "../icons";
 
-const STATUS_LABELS = { PENDING: "Pending", CONTACTED: "Contacted", CLOSED: "Closed" };
-const STATUS_COLORS = { PENDING: "badge--gold", CONTACTED: "badge--blue", CLOSED: "badge--muted" };
+const STATUS_LABELS = {
+  PENDING:    "Pending",
+  CONTACTED:  "Contacted",
+  CLOSED:     "Closed",
+  HHC_CLIENT: "HHC's Client",
+};
+const STATUS_COLORS = {
+  PENDING:    "badge--gold",
+  CONTACTED:  "badge--blue",
+  CLOSED:     "badge--muted",
+  HHC_CLIENT: "badge--green",
+};
 
-const CARE_LABELS = {
-  HOME_CARE: "Home Care",
-  UNSURE:    "Unsure",
+const CARE_LABELS = { HOME_CARE: "Home Care", UNSURE: "Unsure" };
+
+const SERVICE_LABELS = {
+  SENIOR_PERSONAL_CARE: "Senior / Personal Care",
+  CARE_247:             "24/7 In-Home Care",
+  COMPANION_CARE:       "Companion Care",
+  HOSPITAL_TO_HOME:     "Hospital to Home",
+  PRE_POST_SURGERY:     "Pre/Post Surgery",
+  DEMENTIA_CARE:        "Dementia Care",
+  ALZHEIMERS_CARE:      "Alzheimer's Care",
 };
 
 const COUNTIES   = ["GWINNETT","DEKALB","COBB","FULTON","CLAYTON","HENRY","MORROW","WALTON","ROCKDALE","FORSYTH"];
-const STATUSES   = ["PENDING","CONTACTED","CLOSED"];
+const STATUSES   = ["PENDING","CONTACTED","CLOSED","HHC_CLIENT"];
 const CARE_TYPES = ["HOME_CARE","UNSURE"];
 
 function toTitle(str) { return str ? str.charAt(0) + str.slice(1).toLowerCase() : ""; }
@@ -62,17 +79,14 @@ export default function AdminAssessments() {
 
   const deleteRow = async (id) => {
     if (!confirm("Delete this assessment? This cannot be undone.")) return;
-    try {
-      await fetch(API.adminAssessment(id), { method: "DELETE", credentials: "include" });
-      load();
-    } catch { alert("Delete failed."); }
+    try { await fetch(API.adminAssessment(id), { method: "DELETE", credentials: "include" }); load(); }
+    catch { alert("Delete failed."); }
   };
 
   const resetFilters = () => { setFilterStatus(""); setFilterCounty(""); setFilterCareType(""); };
 
   return (
     <div className="ap-panel">
-
       <div className="ap-filters">
         <span className="ap-filter-label">Filter</span>
         <div className="ap-filter-divider" />
@@ -103,51 +117,39 @@ export default function AdminAssessments() {
               <thead>
                 <tr>
                   <th>Name</th><th>Contact</th><th>Location</th>
-                  <th>Type of Care</th><th>Status</th><th>Submitted</th><th>Actions</th>
+                  <th>Type of Care</th><th>Service</th><th>Status</th><th>Submitted</th><th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {rows.length === 0 && (
-                  <tr><td colSpan={7} className="ap-empty">No assessments found.</td></tr>
-                )}
+                {rows.length === 0 && <tr><td colSpan={8} className="ap-empty">No assessments found.</td></tr>}
                 {rows.map(row => (
                   <tr key={row.id}>
                     <td data-label="Name" className="ap-td-name">{row.fullName}</td>
                     <td data-label="Contact">
                       <div className="ap-contact-cell">
-                        <a href={`tel:${row.phoneNumber}`} className="ap-action-call">
-                          <PhoneIcon size={13} />{row.phoneNumber}
-                        </a>
-                        <a href={`mailto:${row.email}`} className="ap-action-email">
-                          <MailIcon size={13} />{row.email}
-                        </a>
+                        <a href={`tel:${row.phoneNumber}`} className="ap-action-call"><PhoneIcon size={13} />{row.phoneNumber}</a>
+                        <a href={`mailto:${row.email}`} className="ap-action-email"><MailIcon size={13} />{row.email}</a>
                       </div>
                     </td>
                     <td data-label="Location">{row.city}, {toTitle(row.county ?? "")}</td>
                     <td data-label="Type">
-                      <span className="badge badge--navy">{CARE_LABELS[row.typeOfCare]}</span>
+                      <span className="badge badge--navy">{CARE_LABELS[row.typeOfCare] ?? row.typeOfCare}</span>
+                    </td>
+                    <td data-label="Service">
+                      {row.serviceType
+                        ? <span className="badge badge--sm badge--blue">{SERVICE_LABELS[row.serviceType] ?? row.serviceType}</span>
+                        : <em className="ap-none">—</em>}
                     </td>
                     <td data-label="Status">
                       {editingId === row.id ? (
                         <div className="ap-inline-edit">
-                          <select
-                            value={editStatus}
-                            onChange={e => setEditStatus(e.target.value)}
-                            className="ap-inline-select"
-                          >
+                          <select value={editStatus} onChange={e => setEditStatus(e.target.value)} className="ap-inline-select">
                             {STATUSES.map(s => <option key={s} value={s}>{STATUS_LABELS[s]}</option>)}
                           </select>
-                          <button
-                            className="ap-inline-save"
-                            onClick={() => saveStatus(row.id)}
-                            disabled={savingId === row.id}
-                            title="Save"
-                          >
+                          <button className="ap-inline-save" onClick={() => saveStatus(row.id)} disabled={savingId === row.id} title="Save">
                             {savingId === row.id ? "…" : <CheckIcon size={13} />}
                           </button>
-                          <button className="ap-inline-cancel" onClick={() => setEditingId(null)} title="Cancel">
-                            <XIcon size={13} />
-                          </button>
+                          <button className="ap-inline-cancel" onClick={() => setEditingId(null)} title="Cancel"><XIcon size={13} /></button>
                         </div>
                       ) : (
                         <button
@@ -164,9 +166,7 @@ export default function AdminAssessments() {
                     </td>
                     <td data-label="">
                       <div className="ap-td-actions">
-                        <button className="ap-btn-del" onClick={() => deleteRow(row.id)} title="Delete">
-                          <TrashIcon size={15} />
-                        </button>
+                        <button className="ap-btn-del" onClick={() => deleteRow(row.id)} title="Delete"><TrashIcon size={15} /></button>
                       </div>
                     </td>
                   </tr>

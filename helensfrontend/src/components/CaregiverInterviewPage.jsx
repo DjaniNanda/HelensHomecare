@@ -42,6 +42,12 @@ const SHIFT_OPTIONS = [
   { value: "BOTH",  label: "Both",  desc: "Open to any shift" },
 ];
 
+const ROLE_OPTIONS = [
+  { value: "HHA",       label: "Home Health Aide (HHA)",       desc: "Provide personal care and health monitoring" },
+  { value: "CNA",       label: "Certified Nursing Assistant (CNA)", desc: "Assist with clinical and daily care tasks" },
+  { value: "COMPANION", label: "Companion / Sitter Caregiver",  desc: "Offer companionship and non-medical support" },
+];
+
 const INITIAL = {
   firstName:     "",
   lastName:      "",
@@ -50,6 +56,7 @@ const INITIAL = {
   county:        "",
   city:          "",
   availableDays: [],
+  role:          "",
   shift:         "",
 };
 
@@ -209,6 +216,30 @@ function Step2({ data, set, errors }) {
         </div>
       </div>
 
+      {/* Role */}
+      <div className="ci-field">
+        <label>Position You Are Applying For <span className="ci-req">*</span></label>
+        <div className="ci-role-options">
+          {ROLE_OPTIONS.map(opt => {
+            const selected = data.role === opt.value;
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                className={`ci-role-card${selected ? " ci-role-card--active" : ""}`}
+                onClick={() => set("role", opt.value)}
+                aria-pressed={selected}
+              >
+                <strong className="ci-role-label">{opt.label}</strong>
+                <span className="ci-role-desc">{opt.desc}</span>
+                {selected && <span className="ci-role-check"><CheckIcon size={12} /></span>}
+              </button>
+            );
+          })}
+        </div>
+        {errors.role && <span className="ci-err-msg">{errors.role}</span>}
+      </div>
+
       {/* Availability Days */}
       <div className="ci-field">
         <label>Days Available <span className="ci-req">*</span></label>
@@ -360,6 +391,7 @@ function validate(step, data) {
   if (step === 2) {
     if (!data.county)              errs.county        = "Please select your county.";
     if (!data.city.trim())         errs.city          = "City is required.";
+    if (!data.role)                errs.role           = "Please select a position.";
     if (!data.availableDays.length) errs.availableDays = "Please select at least one available day.";
     if (!data.shift)               errs.shift          = "Please select a shift preference.";
   }
@@ -414,6 +446,7 @@ export default function CaregiverInterviewPage() {
         county:        data.county,
         city:          data.city.trim(),
         availableDays: data.availableDays,
+        role:          data.role,
         shift:         data.shift,
       };
       const res = await fetch(API.caregiverApplications, {

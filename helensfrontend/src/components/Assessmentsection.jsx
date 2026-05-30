@@ -7,14 +7,18 @@ import { API } from "../api/config";
    DATA  — values match backend enums exactly
 ═══════════════════════════════════════ */
 const CARE_TYPES = [
-  { value: "HOME_CARE", label: "Senior / Personal / In-Home Care" },
-  { value: "HOME_CARE", label: "24/7 In-Home Care" },
-  { value: "HOME_CARE", label: "Companion Care Service" },
-  { value: "HOME_CARE", label: "Hospital to Home Transition Care" },
-  { value: "HOME_CARE", label: "Assistance Before & After Surgery" },
-  { value: "HOME_CARE", label: "Dementia Care Services" },
-  { value: "HOME_CARE", label: "Alzheimer's Care Services" },
+  { value: "HOME_CARE", label: "Home Care"          },
   { value: "UNSURE",    label: "Unsure / Explore Options" },
+];
+
+const SERVICE_TYPES = [
+  { value: "SENIOR_PERSONAL_CARE", label: "Senior / Personal / In-Home Care"    },
+  { value: "CARE_247",             label: "24/7 In-Home Care"                   },
+  { value: "COMPANION_CARE",       label: "Companion Care Service"              },
+  { value: "HOSPITAL_TO_HOME",     label: "Hospital to Home Transition Care"    },
+  { value: "PRE_POST_SURGERY",     label: "Assistance Before & After Surgery"   },
+  { value: "DEMENTIA_CARE",        label: "Dementia Care Services"              },
+  { value: "ALZHEIMERS_CARE",      label: "Alzheimer's Care Services"           },
 ];
 
 const SERVICE_LOCATIONS = [
@@ -40,10 +44,18 @@ function AssessmentForm() {
   const [form, setForm] = useState({
     firstName: "", lastName: "",
     email: "", phone: "",
-    city: "", location: "", care: "",
+    city: "", location: "", care: "", service: "",
   });
 
-  const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handle = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: value,
+      // Reset service selection when care type changes
+      ...(name === "care" && value !== "HOME_CARE" ? { service: "" } : {}),
+    }));
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -57,6 +69,7 @@ function AssessmentForm() {
         county:      form.location,
         city:        form.city.trim(),
         typeOfCare:  form.care,
+        serviceType: form.care === "HOME_CARE" ? form.service || null : null,
       };
       const res = await fetch(API.assessments, {
         method:  "POST",
@@ -160,6 +173,23 @@ function AssessmentForm() {
           <span className="as-select-arrow" aria-hidden="true"><ChevronIcon size={14} /></span>
         </div>
       </div>
+
+      {/* Service sub-selector — visible only when HOME_CARE selected */}
+      {form.care === "HOME_CARE" && (
+        <div className="as-form-group as-form-group--full">
+          <label htmlFor="af-service">Which service are you interested in?</label>
+          <div className="as-select-wrap">
+            <select id="af-service" name="service"
+              value={form.service} onChange={handle} required>
+              <option value="" disabled>Select a service…</option>
+              {SERVICE_TYPES.map(s => (
+                <option key={s.value} value={s.value}>{s.label}</option>
+              ))}
+            </select>
+            <span className="as-select-arrow" aria-hidden="true"><ChevronIcon size={14} /></span>
+          </div>
+        </div>
+      )}
 
       <button type="submit" className="as-form-submit" disabled={loading}>
         {loading ? "Submitting…" : "Request My Free Assessment"}

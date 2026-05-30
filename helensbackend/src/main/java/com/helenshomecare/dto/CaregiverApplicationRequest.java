@@ -1,6 +1,7 @@
 package com.helenshomecare.dto;
 
 import com.helenshomecare.enums.County;
+import com.helenshomecare.enums.CaregiverRole;
 import com.helenshomecare.enums.Shift;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +32,9 @@ public class CaregiverApplicationRequest {
 
     @NotEmpty(message = "At least one available day is required")
     private List<String> availableDays;
+
+    @NotNull(message = "Role is required")
+    private CaregiverRole role;
 
     @NotNull(message = "Shift preference is required")
     private Shift shift;

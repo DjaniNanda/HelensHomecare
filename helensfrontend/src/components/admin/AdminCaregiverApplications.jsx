@@ -15,6 +15,9 @@ const STATUS_COLORS = {
   REJECTED:  "badge--err",
 };
 
+const ROLE_LABELS = { HHA: "HHA", CNA: "CNA", COMPANION: "Companion" };
+const ROLE_COLORS = { HHA: "badge--blue", CNA: "badge--navy", COMPANION: "badge--gold" };
+
 const COUNTIES = ["GWINNETT","DEKALB","COBB","FULTON","CLAYTON","HENRY","MORROW","WALTON","ROCKDALE","FORSYTH"];
 const STATUSES = ["PENDING","CONTACTED","HIRED","REJECTED"];
 const SHIFT_LABELS = { DAY: "Day", NIGHT: "Night", BOTH: "Both" };
@@ -127,6 +130,7 @@ export default function AdminCaregiverApplications() {
                   <th>Name</th>
                   <th>Contact</th>
                   <th>Location</th>
+                  <th>Role</th>
                   <th>Available Days</th>
                   <th>Shift</th>
                   <th>Status</th>
@@ -152,6 +156,11 @@ export default function AdminCaregiverApplications() {
                       </div>
                     </td>
                     <td data-label="Location">{row.city}, {toTitle(row.county)}</td>
+                    <td data-label="Role">
+                      {row.role
+                        ? <span className={`badge ${ROLE_COLORS[row.role]}`}>{ROLE_LABELS[row.role]}</span>
+                        : <em className="ap-none">—</em>}
+                    </td>
                     <td data-label="Available Days"><DayBadges days={row.availableDays} /></td>
                     <td data-label="Shift">
                       {row.shift
@@ -209,6 +218,12 @@ export default function AdminCaregiverApplications() {
                 <div className="ap-detail-item">
                   <span className="ap-detail-label">Location</span>
                   <span>{detailRow.city}, {toTitle(detailRow.county)}</span>
+                </div>
+                <div className="ap-detail-item">
+                  <span className="ap-detail-label">Role</span>
+                  {detailRow.role
+                    ? <span className={`badge ${ROLE_COLORS[detailRow.role]}`}>{ROLE_LABELS[detailRow.role]}</span>
+                    : <em className="ap-none">—</em>}
                 </div>
                 <div className="ap-detail-item">
                   <span className="ap-detail-label">Available Days</span>

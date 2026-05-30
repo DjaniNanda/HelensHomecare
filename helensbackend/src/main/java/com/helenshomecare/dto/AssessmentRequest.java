@@ -1,6 +1,7 @@
 package com.helenshomecare.dto;
 
 import com.helenshomecare.enums.County;
+import com.helenshomecare.enums.ServiceType;
 import com.helenshomecare.enums.TypeOfCare;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -28,4 +29,7 @@ public class AssessmentRequest {
 
     @NotNull(message = "Type of care is required")
     private TypeOfCare typeOfCare;
+
+    // Optional — required only when typeOfCare == HOME_CARE
+    private ServiceType serviceType;
 }
