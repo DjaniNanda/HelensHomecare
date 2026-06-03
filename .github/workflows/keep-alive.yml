@@ -6,7 +6,7 @@ on:
     - cron: '*/10 * * * *'
     # Once daily at 6 AM UTC — keeps Supabase from pausing (pauses after 7 days)
     - cron: '0 6 * * *'
-  workflow_dispatch: # allow manual trigger
+  workflow_dispatch:
 
 jobs:
   ping-render:
@@ -15,15 +15,22 @@ jobs:
     steps:
       - name: Wake up Render service
         run: |
-          STATUS=$(curl -o /dev/null -s -w "%{http_code}" \
-            --max-time 30 \
-            "${{ secrets.RENDER_BACKEND_URL }}/actuator/health")
-          echo "Render responded with HTTP $STATUS"
-          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 500 ]; then
-            echo "✅ Render is alive"
-          else
-            echo "⚠️ Unexpected status: $STATUS"
-          fi
+          echo "Pinging Render — may take up to 60s on cold start..."
+          for i in 1 2 3; do
+            STATUS=$(curl -o /dev/null -s -w "%{http_code}" \
+              --max-time 60 \
+              --retry 0 \
+              "${{ secrets.RENDER_BACKEND_URL }}/actuator/health" || echo "000")
+            echo "Attempt $i → HTTP $STATUS"
+            if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 500 ]; then
+              echo "✅ Render is alive"
+              exit 0
+            fi
+            echo "Not ready yet, waiting 15s..."
+            sleep 15
+          done
+          echo "⚠️ Render did not respond after 3 attempts — it may still be starting up"
+          exit 0
 
   ping-supabase:
     name: Ping Supabase Database
