@@ -1,0 +1,25 @@
+name: Ping Supabase Database
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    name: Wake up Supabase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase project
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" \
+            --max-time 30 \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/")
+          echo "Supabase responded with HTTP $STATUS"
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 500 ]; then
+            echo "✅ Supabase is alive"
+          else
+            echo "⚠️ Unexpected status: $STATUS"
+          fi
