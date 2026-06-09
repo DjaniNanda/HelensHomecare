@@ -87,6 +87,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/assessments",
                                 "/api/caregiver-applications",
+                                "/api/ping",
                                 "/api/auth/**",
                                 "/h2-console/**",
                                 "/error",
