@@ -366,7 +366,6 @@ export default function Home() {
 
             <div className="hero-trust">
               <div className="trust-item"><CheckIcon /> Personalised Care Plans</div>
-              <div className="trust-item"><CheckIcon /> Licensed &amp; Insured</div>
               <div className="trust-item"><CheckIcon /> Available 24 / 7</div>
             </div>
           </div>

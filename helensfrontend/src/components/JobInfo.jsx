@@ -65,7 +65,7 @@ const POSITIONS = [
 ];
 
 const PERKS = [
-  { Icon: StarIcon,        title: "Competitive Weekly Pay",   desc: "Direct deposit every week with competitive hourly rates and performance-based bonuses." },
+  { Icon: StarIcon,        title: "Competitive BiWeekly Pay",   desc: "Direct deposit every 2 week with competitive hourly rates and performance-based bonuses." },
   { Icon: HeartIcon,       title: "Flexible Scheduling",      desc: "We build your schedule around your life — days, evenings, weekends, or live-in care." },
   { Icon: ShieldIcon,      title: "Free Training & Growth",   desc: "In-house training, certification support, and a clear path for career advancement." },
   { Icon: UsersIcon,       title: "Supportive Team",          desc: "A dedicated care coordinator available 24/7 to guide and support you in the field." },
