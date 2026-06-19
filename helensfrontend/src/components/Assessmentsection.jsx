@@ -2,16 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import "../componentscss/Assessmentsection.css";
 import {
   PhoneIcon, MailIcon, CheckIcon, CheckCircleIcon,
-  HomeIcon, MessageIcon, LockIcon, WarningIcon,
+  HomeIcon, MessageIcon, WarningIcon,
 } from "./icons";
 import { API } from "../api/config";
 
 /* ═══════════════════════════════════════
-   DATA  — values match backend enums exactly
+   DATA
 ═══════════════════════════════════════ */
 const STEPS = [
-  { id: 1, label: "Your Info",  short: "Info" },
-  { id: 2, label: "Care Needs", short: "Care" },
+  { id: 1, label: "Your Info" },
+  { id: 2, label: "Care Needs" },
 ];
 
 const COUNTIES = [
@@ -28,8 +28,8 @@ const COUNTIES = [
 ];
 
 const CARE_OPTIONS = [
-  { value: "HOME_CARE", label: "Home Care",    desc: "I am looking for professional care services at home.", Icon: HomeIcon    },
-  { value: "UNSURE",    label: "Not Sure Yet", desc: "I'd like to speak with someone to explore my options.", Icon: MessageIcon },
+  { value: "HOME_CARE", label: "Home Care",    desc: "Professional care services at home.", Icon: HomeIcon    },
+  { value: "UNSURE",    label: "Not Sure Yet", desc: "Speak with someone to explore options.", Icon: MessageIcon },
 ];
 
 const SERVICE_OPTIONS = [
@@ -54,13 +54,13 @@ function validate(step, data) {
     if (!data.firstName.trim())   errs.firstName   = "First name is required.";
     if (!data.lastName.trim())    errs.lastName    = "Last name is required.";
     if (!data.email.trim() || !/\S+@\S+\.\S+/.test(data.email))
-                                  errs.email       = "Enter a valid email address.";
+                                  errs.email       = "Enter a valid email.";
     if (!data.phoneNumber.trim()) errs.phoneNumber = "Phone number is required.";
   }
   if (step === 2) {
-    if (!data.county)      errs.county     = "Please select your county.";
-    if (!data.city.trim()) errs.city       = "City is required.";
-    if (!data.typeOfCare)  errs.typeOfCare = "Please select a type of care.";
+    if (!data.county)      errs.county      = "Please select your county.";
+    if (!data.city.trim()) errs.city        = "City is required.";
+    if (!data.typeOfCare)  errs.typeOfCare  = "Please select a type of care.";
     if (data.typeOfCare === "HOME_CARE" && !data.serviceType)
                            errs.serviceType = "Please select a specific service.";
   }
@@ -70,13 +70,13 @@ function validate(step, data) {
 /* ── Progress Bar ── */
 function ProgressBar({ current }) {
   return (
-    <div className="as-progress" aria-label="Form progress">
+    <div className="as-progress">
       {STEPS.map((step, i) => {
         const done = step.id < current, active = step.id === current;
         return (
           <div key={step.id} className="as-progress-step">
             <div className={`as-step-bubble${done ? " done" : ""}${active ? " active" : ""}`}>
-              {done ? <CheckIcon size={14} /> : step.id}
+              {done ? <CheckIcon size={13} /> : step.id}
             </div>
             <span className={`as-step-label${active ? " active" : ""}${done ? " done" : ""}`}>
               {step.label}
@@ -89,11 +89,10 @@ function ProgressBar({ current }) {
   );
 }
 
-/* ── Step 1 — Contact Info ── */
+/* ── Step 1 ── */
 function Step1({ data, set, errors }) {
   return (
     <div className="as-step-body">
-      <p className="as-step-intro">Tell us a little about yourself so we can reach you to set up the assessment.</p>
       <div className="as-field-row">
         <div className="as-field">
           <label htmlFor="as-firstName">First Name <span className="as-req">*</span></label>
@@ -119,8 +118,8 @@ function Step1({ data, set, errors }) {
           {errors.email && <span className="as-err-msg">{errors.email}</span>}
         </div>
         <div className="as-field">
-          <label htmlFor="as-phoneNumber">Phone Number <span className="as-req">*</span></label>
-          <input id="as-phoneNumber" type="tel" placeholder="(770) 000-0000" value={data.phoneNumber}
+          <label htmlFor="as-phone">Phone Number <span className="as-req">*</span></label>
+          <input id="as-phone" type="tel" placeholder="(770) 000-0000" value={data.phoneNumber}
             onChange={e => set("phoneNumber", e.target.value)}
             className={`as-input${errors.phoneNumber ? " as-input--err" : ""}`} />
           {errors.phoneNumber && <span className="as-err-msg">{errors.phoneNumber}</span>}
@@ -130,21 +129,21 @@ function Step1({ data, set, errors }) {
   );
 }
 
-/* ── Step 2 — Care Needs ── */
+/* ── Step 2 ── */
 function Step2({ data, set, errors }) {
   return (
     <div className="as-step-body">
-      <p className="as-step-intro">Let us know your location and what type of care you are interested in.</p>
-
       <div className="as-field-row">
         <div className="as-field">
           <label htmlFor="as-county">County <span className="as-req">*</span></label>
-          <select id="as-county" value={data.county}
-            onChange={e => set("county", e.target.value)}
-            className={`as-input as-select${errors.county ? " as-input--err" : ""}`}>
-            <option value="">Select your county…</option>
-            {COUNTIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-          </select>
+          <div className="as-select-wrap">
+            <select id="as-county" value={data.county}
+              onChange={e => set("county", e.target.value)}
+              className={`as-input as-select${errors.county ? " as-input--err" : ""}`}>
+              <option value="">Select county…</option>
+              {COUNTIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+            </select>
+          </div>
           {errors.county && <span className="as-err-msg">{errors.county}</span>}
         </div>
         <div className="as-field">
@@ -156,9 +155,8 @@ function Step2({ data, set, errors }) {
         </div>
       </div>
 
-      {/* Care type cards */}
       <div className="as-field">
-        <label>What type of care are you interested in? <span className="as-req">*</span></label>
+        <label>Type of Care <span className="as-req">*</span></label>
         <div className="as-care-options">
           {CARE_OPTIONS.map(opt => (
             <button key={opt.value} type="button"
@@ -166,20 +164,21 @@ function Step2({ data, set, errors }) {
               onClick={() => { set("typeOfCare", opt.value); if (opt.value !== "HOME_CARE") set("serviceType", ""); }}
               aria-pressed={data.typeOfCare === opt.value}
             >
-              <span className="as-care-icon"><opt.Icon size={28} /></span>
+              <span className="as-care-icon"><opt.Icon size={22} /></span>
               <strong className="as-care-label">{opt.label}</strong>
               <span className="as-care-desc">{opt.desc}</span>
-              {data.typeOfCare === opt.value && <span className="as-care-check"><CheckIcon size={14} /></span>}
+              {data.typeOfCare === opt.value && (
+                <span className="as-care-check"><CheckIcon size={12} /></span>
+              )}
             </button>
           ))}
         </div>
         {errors.typeOfCare && <span className="as-err-msg">{errors.typeOfCare}</span>}
       </div>
 
-      {/* Service sub-selector */}
       {data.typeOfCare === "HOME_CARE" && (
-        <div className="as-field as-service-field">
-          <label>Which service are you interested in? <span className="as-req">*</span></label>
+        <div className="as-field">
+          <label>Which service? <span className="as-req">*</span></label>
           <div className="as-service-options">
             {SERVICE_OPTIONS.map(opt => (
               <button key={opt.value} type="button"
@@ -188,40 +187,15 @@ function Step2({ data, set, errors }) {
                 aria-pressed={data.serviceType === opt.value}
               >
                 {opt.label}
-                {data.serviceType === opt.value && <span className="as-service-check"><CheckIcon size={11} /></span>}
+                {data.serviceType === opt.value && (
+                  <span className="as-service-check"><CheckIcon size={11} /></span>
+                )}
               </button>
             ))}
           </div>
           {errors.serviceType && <span className="as-err-msg">{errors.serviceType}</span>}
         </div>
       )}
-
-      {/* Summary */}
-      <div className="as-summary">
-        <h4 className="as-summary-title">Your Summary</h4>
-        <div className="as-summary-grid">
-          <div className="as-summary-item">
-            <span className="as-summary-label">Name</span>
-            <span className="as-summary-val">{data.firstName} {data.lastName}</span>
-          </div>
-          <div className="as-summary-item">
-            <span className="as-summary-label">Phone</span>
-            <span className="as-summary-val">{data.phoneNumber || "—"}</span>
-          </div>
-          <div className="as-summary-item">
-            <span className="as-summary-label">Email</span>
-            <span className="as-summary-val">{data.email || "—"}</span>
-          </div>
-          {data.serviceType && (
-            <div className="as-summary-item">
-              <span className="as-summary-label">Service</span>
-              <span className="as-summary-val">
-                {SERVICE_OPTIONS.find(s => s.value === data.serviceType)?.label || "—"}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
@@ -247,42 +221,12 @@ function SuccessState({ name }) {
   );
 }
 
-/* ── Reassurance Box ── */
-function ReassuranceBox() {
-  return (
-    <aside className="as-reassurance">
-      <div className="as-reassurance-item">
-        <span className="as-reassurance-icon"><LockIcon size={20} /></span>
-        <div>
-          <strong>100% Confidential</strong>
-          <p>Your information is private and never shared without consent.</p>
-        </div>
-      </div>
-      <div className="as-reassurance-item">
-        <span className="as-reassurance-icon"><PhoneIcon size={20} /></span>
-        <div>
-          <strong>No Obligation</strong>
-          <p>A free assessment — zero commitment, zero pressure.</p>
-        </div>
-      </div>
-      <div className="as-reassurance-item">
-        <span className="as-reassurance-icon">⚡</span>
-        <div>
-          <strong>Quick Response</strong>
-          <p>A care coordinator will reach out within one business day.</p>
-        </div>
-      </div>
-    </aside>
-  );
-}
-
 /* ═══════════════════════════════════════
-   ASSESSMENT SECTION  (exported)
-   Usage:  <AssessmentSection id="assessment" />
+   ASSESSMENT SECTION (exported)
 ═══════════════════════════════════════ */
 export default function AssessmentSection({ id = "assessment" }) {
-  const ref      = useRef(null);
-  const cardRef  = useRef(null);
+  const sectionRef = useRef(null);
+  const cardRef    = useRef(null);
   const [visible,  setVisible]  = useState(false);
   const [step,     setStep]     = useState(1);
   const [data,     setData]     = useState(INITIAL);
@@ -291,13 +235,12 @@ export default function AssessmentSection({ id = "assessment" }) {
   const [loading,  setLoading]  = useState(false);
   const [apiError, setApiError] = useState("");
 
-  /* Intersection observer for section entrance animation */
   useEffect(() => {
-    const el = ref.current;
+    const el = sectionRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -309,15 +252,14 @@ export default function AssessmentSection({ id = "assessment" }) {
   };
 
   const scrollToCard = () =>
-    cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    cardRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
   const next = async () => {
     const errs = validate(step, data);
-    if (Object.keys(errs).length) { setErrors(errs); scrollToCard(); return; }
+    if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
-    if (step < STEPS.length) { setStep(s => s + 1); scrollToCard(); return; }
+    if (step < STEPS.length) { setStep(s => s + 1); return; }
 
-    /* Submit */
     setLoading(true); setApiError("");
     try {
       const payload = {
@@ -338,21 +280,21 @@ export default function AssessmentSection({ id = "assessment" }) {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.message || "Something went wrong. Please try again.");
       }
-      setDone(true); scrollToCard();
+      setDone(true);
     } catch (err) {
-      setApiError(err.message); scrollToCard();
+      setApiError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const back = () => { setStep(s => s - 1); setErrors({}); setApiError(""); scrollToCard(); };
+  const back = () => { setStep(s => s - 1); setErrors({}); setApiError(""); };
 
   return (
-    <section className="as-section" id={id}>
-      <div className={`as-inner${visible ? " as-visible" : ""}`} ref={ref}>
+    <section className="as-section" id={id} ref={sectionRef}>
+      <div className={`as-inner${visible ? " as-visible" : ""}`}>
 
-        {/* ── Left: copy + contact ── */}
+        {/* ── Left: copy ── */}
         <div className="as-copy">
           <span className="as-eyebrow">No Obligation</span>
           <h2 className="as-title">
@@ -380,11 +322,9 @@ export default function AssessmentSection({ id = "assessment" }) {
               <span>helenshomecare14@gmail.com</span>
             </a>
           </div>
-
-          <ReassuranceBox />
         </div>
 
-        {/* ── Right: multi-step form card ── */}
+        {/* ── Right: form card ── */}
         <div className="as-form-card" id="contact" ref={cardRef}>
           {done ? (
             <SuccessState name={data.firstName} />
@@ -395,38 +335,40 @@ export default function AssessmentSection({ id = "assessment" }) {
                 <p>Takes less than 2 minutes</p>
               </div>
 
-              <ProgressBar current={step} />
+              <div className="as-form-body">
+                <ProgressBar current={step} />
 
-              <div className="as-card-step-label">
-                Step {step} of {STEPS.length} — {step === 1 ? "Your Contact Information" : "Your Location & Care Needs"}
-              </div>
+                <p className="as-step-title">
+                  {step === 1 ? "Your Contact Information" : "Your Location & Care Needs"}
+                </p>
 
-              {step === 1 && <Step1 data={data} set={set} errors={errors} />}
-              {step === 2 && <Step2 data={data} set={set} errors={errors} />}
+                {step === 1 && <Step1 data={data} set={set} errors={errors} />}
+                {step === 2 && <Step2 data={data} set={set} errors={errors} />}
 
-              {apiError && (
-                <div className="as-api-error" role="alert">
-                  <WarningIcon size={16} style={{ marginRight: 6, verticalAlign: "middle" }} />
-                  {apiError}
-                </div>
-              )}
-
-              <div className="as-card-footer">
-                {step > 1 && (
-                  <button type="button" className="as-btn-back" onClick={back}>← Back</button>
+                {apiError && (
+                  <div className="as-api-error" role="alert">
+                    <WarningIcon size={15} style={{ marginRight: 6, verticalAlign: "middle" }} />
+                    {apiError}
+                  </div>
                 )}
-                <button
-                  type="button"
-                  className={`as-form-submit${step === STEPS.length ? " as-btn-submit" : ""}`}
-                  onClick={next}
-                  disabled={loading}
-                >
-                  {loading
-                    ? "Submitting…"
-                    : step < STEPS.length
-                    ? <>Continue <span aria-hidden="true">→</span></>
-                    : <>Submit My Request ✓</>}
-                </button>
+
+                <div className="as-card-footer">
+                  {step > 1 && (
+                    <button type="button" className="as-btn-back" onClick={back}>← Back</button>
+                  )}
+                  <button
+                    type="button"
+                    className="as-form-submit"
+                    onClick={next}
+                    disabled={loading}
+                  >
+                    {loading
+                      ? "Submitting…"
+                      : step < STEPS.length
+                      ? "Continue →"
+                      : "Submit My Request ✓"}
+                  </button>
+                </div>
               </div>
             </>
           )}
