@@ -406,3 +406,263 @@
   .as-title   { font-size: clamp(1.45rem, 5.5vw, 1.75rem); }
   .as-desc    { font-size: 0.98rem; }
 }
+/* ═══════════════════════════════════════
+   MULTI-STEP FORM — added classes
+═══════════════════════════════════════ */
+
+/* ── Progress bar ── */
+.as-progress {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+.as-progress-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.as-step-bubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: background 0.25s, color 0.25s;
+}
+.as-step-bubble.active {
+  background: #1a3d4f;
+  color: #fff;
+}
+.as-step-bubble.done {
+  background: #22c55e;
+  color: #fff;
+}
+.as-step-label {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.as-step-label.active { color: #1a3d4f; font-weight: 700; }
+.as-step-label.done   { color: #22c55e; }
+.as-step-line {
+  flex: 1;
+  height: 2px;
+  background: #e2e8f0;
+  margin: 0 8px;
+  transition: background 0.25s;
+}
+.as-step-line.done { background: #22c55e; }
+
+/* ── Step body ── */
+.as-step-body { padding: 4px 0 8px; }
+.as-step-intro { font-size: 0.88rem; color: #64748b; margin-bottom: 20px; }
+.as-card-step-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Fields ── */
+.as-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.as-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.as-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+}
+.as-req { color: #ef4444; }
+.as-input {
+  padding: 10px 13px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #1e293b;
+  background: #f8fafc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.as-input:focus {
+  border-color: #1a3d4f;
+  box-shadow: 0 0 0 3px rgba(26,61,79,0.1);
+  background: #fff;
+}
+.as-input--err { border-color: #ef4444; }
+.as-select { appearance: none; cursor: pointer; }
+.as-err-msg { font-size: 0.76rem; color: #ef4444; margin-top: 2px; }
+
+/* ── Care option cards ── */
+.as-care-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.as-care-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.as-care-card:hover { border-color: #1a3d4f; background: #fff; }
+.as-care-card--active {
+  border-color: #1a3d4f;
+  background: #f0f7fa;
+  box-shadow: 0 0 0 3px rgba(26,61,79,0.1);
+}
+.as-care-icon { font-size: 1.4rem; margin-bottom: 4px; }
+.as-care-label { font-size: 0.9rem; color: #1e293b; }
+.as-care-desc  { font-size: 0.78rem; color: #64748b; font-weight: 400; }
+.as-care-check {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 20px; height: 20px;
+  background: #1a3d4f;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+}
+
+/* ── Service option cards ── */
+.as-service-field { margin-top: 4px; }
+.as-service-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.as-service-card {
+  position: relative;
+  padding: 9px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  color: #374151;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.as-service-card:hover { border-color: #1a3d4f; background: #fff; }
+.as-service-card--active {
+  border-color: #1a3d4f;
+  background: #1a3d4f;
+  color: #fff;
+}
+.as-service-check {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ── Summary ── */
+.as-summary {
+  background: #f0f7fa;
+  border: 1.5px solid #d0e8f2;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+}
+.as-summary-title { font-size: 0.82rem; font-weight: 700; color: #1a3d4f; margin-bottom: 12px; }
+.as-summary-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.as-summary-item  { display: flex; flex-direction: column; gap: 2px; }
+.as-summary-label { font-size: 0.72rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
+.as-summary-val   { font-size: 0.85rem; color: #1e293b; font-weight: 500; word-break: break-all; }
+
+/* ── Card footer nav ── */
+.as-card-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  align-items: center;
+}
+.as-btn-back {
+  padding: 12px 20px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #475569;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.as-btn-back:hover { border-color: #1a3d4f; color: #1a3d4f; }
+
+/* ── API error ── */
+.as-api-error {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1.5px solid #fca5a5;
+  border-radius: 8px;
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+/* ── Reassurance box inside left col ── */
+.as-reassurance {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.as-reassurance-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.as-reassurance-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 1.1rem;
+}
+.as-reassurance-item strong { color: #fff; font-size: 0.9rem; display: block; margin-bottom: 2px; }
+.as-reassurance-item p { color: rgba(255,255,255,0.7); font-size: 0.82rem; margin: 0; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .as-field-row     { grid-template-columns: 1fr; }
+  .as-care-options  { grid-template-columns: 1fr; }
+  .as-summary-grid  { grid-template-columns: 1fr; }
+  .as-card-footer   { flex-direction: column; }
+  .as-btn-back, .as-form-submit { width: 100%; }
+}
