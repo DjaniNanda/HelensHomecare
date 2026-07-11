@@ -105,7 +105,9 @@ public class CaregiverApplicationService {
                 .phoneNumber(application.getPhoneNumber())
                 .email(application.getEmail())
                 .city(application.getCity())
-                .availableDays(application.getAvailableDays())
+                .availableDays(application.getAvailableDays() == null
+                        ? new java.util.ArrayList<>()
+                        : new java.util.ArrayList<>(application.getAvailableDays()))
                 .shift(application.getShift())
                 .status(EmployeeStatus.ACTIVE)
                 .caregiverApplication(application)
