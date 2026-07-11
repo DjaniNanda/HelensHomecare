@@ -108,6 +108,9 @@ public class CaregiverApplicationService {
                 .availableDays(application.getAvailableDays() == null
                         ? new java.util.ArrayList<>()
                         : new java.util.ArrayList<>(application.getAvailableDays()))
+                .assignedZones(application.getCounty() == null
+                        ? new java.util.ArrayList<>()
+                        : new java.util.ArrayList<>(List.of(application.getCounty())))
                 .shift(application.getShift())
                 .status(EmployeeStatus.ACTIVE)
                 .caregiverApplication(application)
